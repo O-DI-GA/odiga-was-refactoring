@@ -8,7 +8,7 @@ import org.locationtech.jts.geom.Point;
 import org.locationtech.jts.geom.PrecisionModel;
 
 public record StoreRegisterRequestDto(String storeName, String phoneNumber, String address,
-                              int tableCount, double longitude, double latitude) {
+                                      double longitude, double latitude) {
 
     public Store toEntity(Owner owner) {
         GeometryFactory geometryFactory = new GeometryFactory(new PrecisionModel(), 4326);
