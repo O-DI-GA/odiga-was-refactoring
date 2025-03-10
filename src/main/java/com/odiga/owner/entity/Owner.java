@@ -3,7 +3,7 @@ package com.odiga.owner.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.odiga.global.entity.BaseEntity;
+import com.odiga.common.entity.BaseEntity;
 import com.odiga.store.entity.Store;
 
 import jakarta.persistence.CascadeType;
