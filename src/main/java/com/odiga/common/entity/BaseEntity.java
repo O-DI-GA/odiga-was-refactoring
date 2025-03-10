@@ -1,4 +1,4 @@
-package com.odiga.global.entity;
+package com.odiga.common.entity;
 
 import java.time.LocalDateTime;
 
