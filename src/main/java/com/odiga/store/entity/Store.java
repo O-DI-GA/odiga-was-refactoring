@@ -2,7 +2,6 @@ package com.odiga.store.entity;
 
 import com.odiga.global.entity.BaseEntity;
 import com.odiga.owner.entity.Owner;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -19,17 +18,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Store extends BaseEntity {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
 
-	private String name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "OWNER_ID")
-	private Owner owner;
+    private String name;
 
-	public void setOwner(Owner owner) {
-		this.owner = owner;
-	}
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "OWNER_ID")
+    private Owner owner;
+
+    public void setOwner(Owner owner) {
+        this.owner = owner;
+    }
 }
