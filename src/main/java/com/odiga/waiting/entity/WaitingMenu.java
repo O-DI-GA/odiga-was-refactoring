@@ -3,6 +3,7 @@ package com.odiga.waiting.entity;
 import com.odiga.common.entity.BaseEntity;
 import com.odiga.menu.entity.Menu;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -16,11 +17,11 @@ public class WaitingMenu extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "WAITING_ID")
     private Waiting waiting;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MENU_ID")
     private Menu menu;
 
