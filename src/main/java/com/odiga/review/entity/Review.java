@@ -1,5 +1,6 @@
 package com.odiga.review.entity;
 
+import com.odiga.common.entity.BaseEntity;
 import com.odiga.store.entity.Store;
 import com.odiga.user.entity.User;
 import jakarta.persistence.Entity;
@@ -11,7 +12,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class Review {
+public class Review extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

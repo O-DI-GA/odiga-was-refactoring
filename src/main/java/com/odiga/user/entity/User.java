@@ -1,5 +1,6 @@
 package com.odiga.user.entity;
 
+import com.odiga.common.entity.BaseEntity;
 import com.odiga.review.entity.Review;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class User {
+public class User extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
