@@ -1,10 +1,12 @@
 package com.odiga.store.entity;
 
 import com.odiga.common.entity.BaseEntity;
+import com.odiga.like.entity.LikeStore;
 import com.odiga.menu.entity.Category;
 import com.odiga.owner.entity.Owner;
 import com.odiga.reservation.entity.Reservation;
 import com.odiga.reservation.entity.ReservationSlot;
+import com.odiga.review.entity.Review;
 import com.odiga.waiting.entity.Waiting;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -49,6 +51,12 @@ public class Store extends BaseEntity {
 
     @OneToMany(mappedBy = "store")
     private List<Reservation> reservations = new ArrayList<>();
+
+    @OneToMany(mappedBy = "store")
+    private List<Review> reviews = new ArrayList<>();
+
+    @OneToMany(mappedBy = "store")
+    private List<LikeStore> likeStores = new ArrayList<>();
 
     public void addCategory(Category category) {
         categories.add(category);
