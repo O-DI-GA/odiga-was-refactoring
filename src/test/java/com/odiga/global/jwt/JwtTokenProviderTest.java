@@ -7,7 +7,9 @@ import com.odiga.common.type.Role;
 import com.odiga.owner.application.OwnerUserDetailsService;
 import com.odiga.owner.dao.OwnerRepository;
 import com.odiga.owner.entity.Owner;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
+import java.util.Date;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -32,6 +34,7 @@ class JwtTokenProviderTest {
 
     Owner owner;
 
+
     @BeforeEach
     void init() {
         String secretKey = "secretKeySecretKeySecretKeySecretKeySecretKeysecretKeySecretKeySecretKeySecretKeySecretKey";
@@ -51,8 +54,18 @@ class JwtTokenProviderTest {
     }
 
     @Test
+    @DisplayName("유효 기간이 지나지 않은 access token의 claims 조회한 경우 claims를 정상적으로 조회한다")
+    void expireTimeTest() {
+
+        JwtTokenDto token = jwtTokenProvider.createToken("example@google.com");
+        Claims claims = jwtTokenProvider.getClaims(token.accessToken());
+
+        assertThat(claims).isNotNull();
+    }
+
+    @Test
     @DisplayName("유효 기간이 지난 access token의 claims 조회한 경우 예외를 발생")
-    void expireTimeTest() throws InterruptedException {
+    void expireTimeTestFail() throws InterruptedException {
         JwtTokenDto token = jwtTokenProvider.createToken("example@google.com");
         Thread.sleep(2000);
 
