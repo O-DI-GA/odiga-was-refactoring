@@ -64,4 +64,14 @@ public class JwtTokenProvider {
             .parseClaimsJws(token)
             .getBody();
     }
+
+    public boolean validateToken(String token) {
+        try {
+            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
+            return true;
+        } catch (Exception e) {
+            // TODO : 추가적인 exception 분기 필요
+            throw new RuntimeException(e);
+        }
+    }
 }
