@@ -1,10 +1,15 @@
 package com.odiga.global.jwt;
 
+import com.odiga.global.exception.CustomException;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.security.SignatureException;
 import java.security.Key;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Value;
@@ -69,9 +74,14 @@ public class JwtTokenProvider {
         try {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
-        } catch (Exception e) {
-            // TODO : 추가적인 exception 분기 필요
-            throw new RuntimeException(e);
+        } catch (SignatureException | MalformedJwtException e) {
+            throw new CustomException(JwtErrorCode.INVALID_TOKEN);
+        } catch (ExpiredJwtException e) {
+            throw new CustomException(JwtErrorCode.EXPIRE_ERROR);
+        } catch (UnsupportedJwtException e) {
+            throw new CustomException(JwtErrorCode.UNSUPPORTED_TOKEN);
+        } catch (IllegalArgumentException e) {
+            throw new CustomException(JwtErrorCode.NOT_FOUND_TOKEN);
         }
     }
 }

@@ -9,7 +9,6 @@ import com.odiga.owner.dao.OwnerRepository;
 import com.odiga.owner.entity.Owner;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
-import java.util.Date;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
