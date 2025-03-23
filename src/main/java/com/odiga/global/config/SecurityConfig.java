@@ -5,7 +5,6 @@ import com.odiga.global.filter.JwtExceptionFilter;
 import com.odiga.global.jwt.JwtTokenProvider;
 import com.odiga.owner.application.OwnerUserDetailsService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -33,7 +32,6 @@ public class SecurityConfig {
 
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/v1/owners/auth/**").permitAll()
-                .requestMatchers(PathRequest.toH2Console()).permitAll()
                 .anyRequest().authenticated()
             )
             .headers(header -> header.frameOptions(FrameOptionsConfig::sameOrigin))
