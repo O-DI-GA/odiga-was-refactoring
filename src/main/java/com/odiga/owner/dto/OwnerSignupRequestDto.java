@@ -1,5 +1,15 @@
 package com.odiga.owner.dto;
 
-public record OwnerSignupRequestDto(String email, String password, String name) {
+import io.swagger.v3.oas.annotations.media.Schema;
+
+@Schema(title = "Owner 회원가입 요청")
+public record OwnerSignupRequestDto(
+
+    @Schema(description = "Owner 사용자 이메일", example = "example@gmail.com")
+    String email,
+    @Schema(description = "Owner 사용자 비밀번호", example = "ExamplePassword123@")
+    String password,
+    @Schema(description = "Owner 사용자 이름", example = "홍길동")
+    String name) {
 
 }

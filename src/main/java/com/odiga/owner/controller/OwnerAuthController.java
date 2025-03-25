@@ -1,5 +1,6 @@
 package com.odiga.owner.controller;
 
+import com.odiga.owner.api.OwnerAuthApi;
 import com.odiga.owner.application.OwnerAuthService;
 import com.odiga.owner.dto.OwnerLoginRequestDto;
 import com.odiga.owner.dto.OwnerSignupRequestDto;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("api/v1/owners/auth")
-public class OwnerAuthController {
+public class OwnerAuthController implements OwnerAuthApi {
 
     private final OwnerAuthService ownerAuthService;
 
