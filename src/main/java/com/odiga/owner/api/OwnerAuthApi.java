@@ -38,13 +38,13 @@ public interface OwnerAuthApi {
                   "refreshToken": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJleGFtcGxlQGdtYWlsLmNvbSIsImV4cCI6MTc0MjkxNzA0MH0.CTP03FkIwQ53jyBezXEM4pxtQoiBtoglW-3Da0q65xoa-Qzjvsqw5q9Pp31e2SJ_xtEzbkCLOh6qqkpBy0BakQ"
                 }
                 """),})),
-        @ApiResponse(responseCode = "201", content = @Content(mediaType = "application/json", examples = {
+        @ApiResponse(responseCode = "404", content = @Content(mediaType = "application/json", examples = {
             @ExampleObject(name = "로그인 실패 - 존재하지 않는 email", value = """
                 {
                   "message": "존재하지 않는 계정입니다."
                 }
                 """),})),
-        @ApiResponse(responseCode = "404", content = @Content(mediaType = "application/json", examples = {
+        @ApiResponse(responseCode = "401", content = @Content(mediaType = "application/json", examples = {
             @ExampleObject(name = "로그인 실패 - 옳바르지 않은 비밀번호", value = """
                 {
                   "message": "올바르지 않은 비밀번호 입니다."
