@@ -73,6 +73,36 @@ class OwnerRepositoryTest {
     }
 
     @Test
+    @DisplayName("존재하는 이메일로 Owner 찾기 - existBy")
+    void existByEmailOwnerTest() {
+        String email = "example@google.com";
+
+        Owner owner = Owner.builder()
+            .email(email)
+            .password("password")
+            .name("owner1")
+            .build();
+
+        ownerRepository.save(owner);
+
+        boolean exists = ownerRepository.existsByEmail(email);
+
+        assertThat(exists).isTrue();
+    }
+
+    @Test
+    @DisplayName("존재하지 않는 이메일로 Owner 찾기 - existBy")
+    void existByEmailOwnerFailTest() {
+        String email = "example@google.com";
+
+        boolean exists = ownerRepository.existsByEmail(email);
+
+        assertThat(exists).isFalse();
+    }
+
+
+
+    @Test
     @DisplayName("존재하는 이메일로 Owner 찾기")
     void findByEmailOwnerTest() {
         String email = "example@google.com";
