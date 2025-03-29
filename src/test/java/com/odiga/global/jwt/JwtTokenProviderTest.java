@@ -4,21 +4,25 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.odiga.common.type.Role;
+import com.odiga.config.TestConfig;
 import com.odiga.owner.application.OwnerUserDetailsService;
 import com.odiga.owner.dao.OwnerRepository;
 import com.odiga.owner.entity.Owner;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.context.annotation.Import;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+@Import(TestConfig.class)
 @SpringBootTest(webEnvironment = WebEnvironment.NONE)
 class JwtTokenProviderTest {
 
@@ -42,6 +46,11 @@ class JwtTokenProviderTest {
             .email("example@google.com")
             .password("password")
             .build();
+    }
+
+    @AfterEach
+    void clear() {
+        ownerRepository.deleteAll();
     }
 
     @Test
