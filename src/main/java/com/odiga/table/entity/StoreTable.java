@@ -4,6 +4,8 @@ import com.odiga.common.entity.BaseEntity;
 import com.odiga.order.entity.TableOrder;
 import com.odiga.store.entity.Store;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -31,4 +33,7 @@ public class StoreTable extends BaseEntity {
 
     @OneToMany(mappedBy = "storeTable")
     private List<TableOrder> tableOrders = new ArrayList<>();
+
+    @Enumerated(EnumType.STRING)
+    private TableStatus tableStatus;
 }

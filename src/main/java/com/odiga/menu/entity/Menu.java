@@ -24,8 +24,8 @@ public class Menu extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private Category category;
 
-    public void setCategory(Category category) {
-        this.category = category;
-        category.addMenu(this);
-    }
+//    public void setCategory(Category category) {
+//        this.category = category;
+//        category.addMenu(this);
+//    }
 }
