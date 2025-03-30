@@ -46,7 +46,7 @@ public class Owner extends BaseEntity implements UserDetails {
 
     public void addStore(Store store) {
         stores.add(store);
-        store.setOwner(this);
+//        store.setOwner(this);
     }
 
     @Override

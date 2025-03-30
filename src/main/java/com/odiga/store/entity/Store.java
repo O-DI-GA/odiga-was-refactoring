@@ -62,11 +62,11 @@ public class Store extends BaseEntity {
     @OneToMany(mappedBy = "store")
     private List<LikeStore> likeStores = new ArrayList<>();
 
-    public void addCategory(Category category) {
-        categories.add(category);
-    }
-
-    public void setOwner(Owner owner) {
-        this.owner = owner;
-    }
+//    public void addCategory(Category category) {
+//        categories.add(category);
+//    }
+//
+//    public void setOwner(Owner owner) {
+//        this.owner = owner;
+//    }
 }

@@ -28,12 +28,12 @@ public class Category extends BaseEntity {
     @OneToMany(mappedBy = "category")
     private List<Menu> menus = new ArrayList<>();
 
-    public void setStore(Store store) {
-        this.store = store;
-        store.addCategory(this);
-    }
-
-    public void addMenu(Menu menu) {
-        menus.add(menu);
-    }
+//    public void setStore(Store store) {
+//        this.store = store;
+//        store.addCategory(this);
+//    }
+//
+//    public void addMenu(Menu menu) {
+//        menus.add(menu);
+//    }
 }
