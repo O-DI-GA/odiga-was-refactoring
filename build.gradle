@@ -57,10 +57,12 @@ jacocoTestReport {
         html.required = true
         xml.required = true
     }
+    excludedClassFilesForReport(classDirectories)
 }
 
 // 테스트 커버리지 검사
 jacocoTestCoverageVerification {
+    excludedClassFilesForReport(classDirectories)
     violationRules {
         rule {
             element 'CLASS'
@@ -76,9 +78,21 @@ jacocoTestCoverageVerification {
                 value = 'COVEREDRATIO'
                 minimum = 0.75 // 테스트 커버리지 최소 80%
             }
-
-            // 커버리지 체크를 제외할 클래스들
-            excludes = ['*.*Application', '*.*Controller', '*.dto.*', '*.exception.*', '*.config.*', '*.domain.Q*', '*.global.*']
         }
     }
+}
+
+private excludedClassFilesForReport(classDirectories) {
+    classDirectories.setFrom(
+            files(classDirectories.files.collect {
+                fileTree(dir: it, exclude: [
+                        "**/global/**",
+                        "**/dto/**",
+                        "**/*domain*/**",
+                        "**/*Application*",
+                        "**/controller/**",
+                        '**/exception/**'
+                ])
+            })
+    )
 }
