@@ -70,13 +70,13 @@ jacocoTestCoverageVerification {
             limit {
                 counter = 'LINE'
                 value = 'COVEREDRATIO'
-                minimum = 0.75 // 테스트 커버리지 최소 80%
+                minimum = 0.75
             }
 
             limit {
                 counter = 'METHOD'
                 value = 'COVEREDRATIO'
-                minimum = 0.75 // 테스트 커버리지 최소 80%
+                minimum = 0.75
             }
         }
     }
