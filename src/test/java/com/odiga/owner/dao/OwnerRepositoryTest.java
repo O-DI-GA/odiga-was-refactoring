@@ -6,6 +6,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import com.odiga.global.config.JpaConfig;
 import com.odiga.owner.entity.Owner;
 import java.util.Optional;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,16 +21,23 @@ class OwnerRepositoryTest {
     @Autowired
     OwnerRepository ownerRepository;
 
-    @Test
-    @DisplayName("Owner 생성 테스트(성공)")
-    void createOwnerTest() {
-        Owner owner = Owner.builder()
+    Owner owner;
+
+    @BeforeEach
+    void init() {
+        owner = Owner.builder()
             .email("example@google.com")
             .password("password")
             .name("owner")
             .build();
 
         ownerRepository.save(owner);
+
+    }
+
+    @Test
+    @DisplayName("Owner 생성 테스트(성공)")
+    void createOwnerTest() {
 
         Owner findOwner = ownerRepository.findById(owner.getId()).orElseThrow();
 
@@ -54,19 +62,11 @@ class OwnerRepositoryTest {
     @DisplayName("Owner 생성 테스트(실패 - email 중복)")
     void creatOwnerTestFailByConfEmailConflict() {
 
-        Owner owner1 = Owner.builder()
-            .email("example@google.com")
-            .password("password")
-            .name("owner")
-            .build();
-
         Owner owner2 = Owner.builder()
             .email("example@google.com")
             .password("password")
             .name("owner")
             .build();
-
-        ownerRepository.save(owner1);
 
         assertThatThrownBy(() -> ownerRepository.save(owner2)).isInstanceOf(
             DataIntegrityViolationException.class);
@@ -77,14 +77,6 @@ class OwnerRepositoryTest {
     void existByEmailOwnerTest() {
         String email = "example@google.com";
 
-        Owner owner = Owner.builder()
-            .email(email)
-            .password("password")
-            .name("owner1")
-            .build();
-
-        ownerRepository.save(owner);
-
         boolean exists = ownerRepository.existsByEmail(email);
 
         assertThat(exists).isTrue();
@@ -93,7 +85,7 @@ class OwnerRepositoryTest {
     @Test
     @DisplayName("존재하지 않는 이메일로 Owner 찾기 - existBy")
     void existByEmailOwnerFailTest() {
-        String email = "example@google.com";
+        String email = "example2@google.com";
 
         boolean exists = ownerRepository.existsByEmail(email);
 
@@ -101,19 +93,11 @@ class OwnerRepositoryTest {
     }
 
 
-
     @Test
     @DisplayName("존재하는 이메일로 Owner 찾기")
     void findByEmailOwnerTest() {
-        String email = "example@google.com";
 
-        Owner owner = Owner.builder()
-            .email(email)
-            .password("password")
-            .name("owner1")
-            .build();
-
-        ownerRepository.save(owner);
+        String email = owner.getEmail();
 
         Optional<Owner> findOwner = ownerRepository.findByEmail(email);
 
@@ -124,21 +108,10 @@ class OwnerRepositoryTest {
     @Test
     @DisplayName("존재하는 않는 이메일로 Owner 찾기")
     void findByEmailOwnerTestFail() {
-        String email = "example@google.com";
-
-        Owner owner = Owner.builder()
-            .email(email)
-            .password("password")
-            .name("owner1")
-            .build();
-
-        ownerRepository.save(owner);
-
         String findEmail = "example@naver.com";
 
         Optional<Owner> findOwner = ownerRepository.findByEmail(findEmail);
 
         assertThat(findOwner.isEmpty()).isTrue();
     }
-
 }
