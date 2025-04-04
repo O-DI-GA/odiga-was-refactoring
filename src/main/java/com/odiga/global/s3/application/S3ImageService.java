@@ -1,11 +1,11 @@
-package com.odiga.common.util;
+package com.odiga.global.s3.application;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.odiga.common.exception.S3ErrorCode;
 import com.odiga.global.exception.CustomException;
+import com.odiga.global.s3.exception.S3ErrorCode;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.UUID;

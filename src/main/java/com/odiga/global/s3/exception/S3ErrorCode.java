@@ -1,4 +1,4 @@
-package com.odiga.common.exception;
+package com.odiga.global.s3.exception;
 
 import com.odiga.global.exception.ErrorCode;
 import lombok.AllArgsConstructor;
