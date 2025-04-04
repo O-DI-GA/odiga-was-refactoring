@@ -76,6 +76,11 @@ public class Store extends BaseEntity {
     @OneToMany(mappedBy = "store")
     private List<StoreImage> images = new ArrayList<>();
 
+    public void createStoreImages(String titleImageUrl, List<StoreImage> storeImages) {
+        this.titleImageUrl = titleImageUrl;
+        this.images = storeImages;
+    }
+
 //    public void addCategory(Category category) {
 //        categories.add(category);
 //    }

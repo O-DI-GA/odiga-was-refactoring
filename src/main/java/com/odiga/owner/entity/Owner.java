@@ -44,11 +44,6 @@ public class Owner extends BaseEntity implements UserDetails {
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
     private List<Store> stores = new ArrayList<>();
 
-    public void addStore(Store store) {
-        stores.add(store);
-//        store.setOwner(this);
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singleton(new SimpleGrantedAuthority(Role.ROLE_OWNER.name()));
