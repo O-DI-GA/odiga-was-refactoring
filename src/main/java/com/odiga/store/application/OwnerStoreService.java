@@ -29,4 +29,12 @@ public class OwnerStoreService {
 
         return StoreResponseDto.from(store);
     }
+
+    @Transactional(readOnly = true)
+    public List<StoreResponseDto> findAllStoreByOwner(Owner owner) {
+
+        List<Store> stores = storeRepository.findByOwnerId(owner.getId());
+
+        return stores.stream().map(StoreResponseDto::from).toList();
+    }
 }
