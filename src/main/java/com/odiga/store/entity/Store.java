@@ -103,6 +103,12 @@ public class Store extends BaseEntity {
         this.images = storeImages;
     }
 
+    public void validateOwner(Long ownerId) {
+        if (!owner.getId().equals(ownerId)) {
+            throw new CustomException(OwnerStoreErrorCode.FORBIDDEN);
+        }
+    }
+
 //    public void addCategory(Category category) {
 //        categories.add(category);
 //    }

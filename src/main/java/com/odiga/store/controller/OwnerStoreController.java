@@ -11,7 +11,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,7 +32,6 @@ public class OwnerStoreController implements OwnerStoreApi {
                                                 @RequestPart StoreRegisterRequestDto storeRegisterRequestDto,
                                                 @RequestPart MultipartFile storeTitleImage,
                                                 @RequestPart List<MultipartFile> images) {
-
         return ResponseEntity.status(HttpStatus.CREATED)
             .body(ownerStoreService.registerStore(owner, storeRegisterRequestDto, storeTitleImage, images));
 
@@ -39,6 +40,18 @@ public class OwnerStoreController implements OwnerStoreApi {
     @GetMapping
     public ResponseEntity<?> findAllOwnerStore(@AuthenticationPrincipal Owner owner) {
         return ResponseEntity.ok(ownerStoreService.findAllStoreByOwner(owner));
+    }
+
+    @PutMapping("{storeId}/open")
+    public ResponseEntity<?> changeStoreStatusToOpen(@AuthenticationPrincipal Owner owner,
+                                                     @PathVariable Long storeId) {
+        return ResponseEntity.ok(ownerStoreService.openStore(owner, storeId));
+    }
+
+    @PutMapping("{storeId}/close")
+    public ResponseEntity<?> changeStoreStatusToClose(@AuthenticationPrincipal Owner owner,
+                                                      @PathVariable Long storeId) {
+        return ResponseEntity.ok(ownerStoreService.closeStore(owner, storeId));
     }
 
 }

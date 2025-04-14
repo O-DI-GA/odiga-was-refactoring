@@ -45,6 +45,7 @@ public class OwnerStoreService {
         Store store = storeRepository.findById(storeId)
             .orElseThrow(() -> new CustomException(StoreErrorCode.NOT_FOUND_STORE));
 
+        store.validateOwner(owner.getId());
         store.storeOpen();
 
         return StoreResponseDto.from(store);
@@ -55,6 +56,7 @@ public class OwnerStoreService {
         Store store = storeRepository.findById(storeId)
             .orElseThrow(() -> new CustomException(StoreErrorCode.NOT_FOUND_STORE));
 
+        store.validateOwner(owner.getId());
         store.storeClose();
 
         return StoreResponseDto.from(store);
