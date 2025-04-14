@@ -66,27 +66,27 @@ jacocoTestReport {
     excludedClassFilesForReport(classDirectories)
 }
 
-// 테스트 커버리지 검사
-jacocoTestCoverageVerification {
-    excludedClassFilesForReport(classDirectories)
-    violationRules {
-        rule {
-            element 'CLASS'
-
-            limit {
-                counter = 'LINE'
-                value = 'COVEREDRATIO'
-                minimum = 0.75
-            }
-
-            limit {
-                counter = 'METHOD'
-                value = 'COVEREDRATIO'
-                minimum = 0.75
-            }
-        }
-    }
-}
+// 테스트 커버리지 검사 -> GiHub Actions 에서 커버리지 검사를 하기 때문에 제외
+//jacocoTestCoverageVerification {
+//    excludedClassFilesForReport(classDirectories)
+//    violationRules {
+//        rule {
+//            element 'CLASS'
+//
+//            limit {
+//                counter = 'LINE'
+//                value = 'COVEREDRATIO'
+//                minimum = 0.75
+//            }
+//
+//            limit {
+//                counter = 'METHOD'
+//                value = 'COVEREDRATIO'
+//                minimum = 0.75
+//            }
+//        }
+//    }
+//}
 
 private excludedClassFilesForReport(classDirectories) {
     classDirectories.setFrom(
