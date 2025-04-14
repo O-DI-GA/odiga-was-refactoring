@@ -6,6 +6,8 @@ import com.odiga.store.application.OwnerStoreService;
 import com.odiga.store.dto.StoreRegisterRequestDto;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -38,8 +40,8 @@ public class OwnerStoreController implements OwnerStoreApi {
     }
 
     @GetMapping
-    public ResponseEntity<?> findAllOwnerStore(@AuthenticationPrincipal Owner owner) {
-        return ResponseEntity.ok(ownerStoreService.findAllStoreByOwner(owner));
+    public ResponseEntity<?> findAllOwnerStore(@AuthenticationPrincipal Owner owner, Pageable pageable) {
+        return ResponseEntity.ok(ownerStoreService.findAllStoreByOwner(owner, pageable));
     }
 
     @PutMapping("{storeId}/open")

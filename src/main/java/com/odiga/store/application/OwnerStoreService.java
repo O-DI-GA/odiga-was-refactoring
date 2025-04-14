@@ -9,6 +9,8 @@ import com.odiga.store.entity.Store;
 import com.odiga.store.exception.StoreErrorCode;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -33,9 +35,9 @@ public class OwnerStoreService {
     }
 
     @Transactional(readOnly = true)
-    public List<StoreResponseDto> findAllStoreByOwner(Owner owner) {
+    public List<StoreResponseDto> findAllStoreByOwner(Owner owner, Pageable pageable) {
 
-        List<Store> stores = storeRepository.findByOwnerId(owner.getId());
+        Page<Store> stores = storeRepository.findByOwnerId(owner.getId(), pageable);
 
         return stores.stream().map(StoreResponseDto::from).toList();
     }
