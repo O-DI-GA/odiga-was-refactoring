@@ -18,6 +18,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.mock.web.MockMultipartFile;
 
 @ExtendWith(MockitoExtension.class)
@@ -58,13 +62,16 @@ class OwnerStoreServiceTest {
             .owner(owner)
             .build();
 
-        List<Store> stores = new ArrayList<>(List.of(store, store2));
+        List<Store> storeList = List.of(store, store2);
+        Page<Store> stores = new PageImpl<>(storeList);
 
-        when(storeRepository.findByOwnerId(any())).thenReturn(stores);
+        Pageable pageable = PageRequest.of(0, 10);
 
-        List<StoreResponseDto> storeResponse = ownerStoreService.findAllStoreByOwner(owner);
+        when(storeRepository.findByOwnerId(any(), any())).thenReturn(stores);
 
-        assertThat(storeResponse.size()).isEqualTo(stores.size());
-        assertThat(storeResponse.get(0).name()).isEqualTo(stores.get(0).getName());
+        List<StoreResponseDto> storeResponse = ownerStoreService.findAllStoreByOwner(owner, pageable);
+
+        assertThat(storeResponse.size()).isEqualTo(stores.getSize());
+        assertThat(storeResponse.get(0).name()).isEqualTo(storeList.get(0).getName());
     }
 }
