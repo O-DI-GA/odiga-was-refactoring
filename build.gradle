@@ -67,26 +67,26 @@ jacocoTestReport {
 }
 
 // 테스트 커버리지 검사
-//jacocoTestCoverageVerification {
-//    excludedClassFilesForReport(classDirectories)
-//    violationRules {
-//        rule {
-//            element 'CLASS'
-//
-//            limit {
-//                counter = 'LINE'
-//                value = 'COVEREDRATIO'
-//                minimum = 0.75
-//            }
-//
-//            limit {
-//                counter = 'METHOD'
-//                value = 'COVEREDRATIO'
-//                minimum = 0.75
-//            }
-//        }
-//    }
-//}
+jacocoTestCoverageVerification {
+    excludedClassFilesForReport(classDirectories)
+    violationRules {
+        rule {
+            element 'CLASS'
+
+            limit {
+                counter = 'LINE'
+                value = 'COVEREDRATIO'
+                minimum = 0.75
+            }
+
+            limit {
+                counter = 'METHOD'
+                value = 'COVEREDRATIO'
+                minimum = 0.75
+            }
+        }
+    }
+}
 
 private excludedClassFilesForReport(classDirectories) {
     classDirectories.setFrom(

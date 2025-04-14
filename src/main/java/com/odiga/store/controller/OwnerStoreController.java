@@ -1,12 +1,11 @@
 package com.odiga.store.controller;
 
 import com.odiga.owner.entity.Owner;
-import com.odiga.store.OwnerStoreApi;
+import com.odiga.store.api.OwnerStoreApi;
 import com.odiga.store.application.OwnerStoreService;
 import com.odiga.store.dto.StoreRegisterRequestDto;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -29,11 +28,12 @@ public class OwnerStoreController implements OwnerStoreApi {
     private final OwnerStoreService ownerStoreService;
 
 
-    @PostMapping(consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> registerOwnerStore(@AuthenticationPrincipal Owner owner,
                                                 @RequestPart StoreRegisterRequestDto storeRegisterRequestDto,
                                                 @RequestPart MultipartFile storeTitleImage,
                                                 @RequestPart List<MultipartFile> images) {
+
         return ResponseEntity.status(HttpStatus.CREATED)
             .body(ownerStoreService.registerStore(owner, storeRegisterRequestDto, storeTitleImage, images));
 
