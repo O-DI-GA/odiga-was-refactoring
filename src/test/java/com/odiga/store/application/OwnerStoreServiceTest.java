@@ -11,8 +11,11 @@ import com.odiga.store.dao.StoreRepository;
 import com.odiga.store.dto.StoreRegisterRequestDto;
 import com.odiga.store.dto.StoreResponseDto;
 import com.odiga.store.entity.Store;
+import com.odiga.store.entity.StoreStatus;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -73,5 +76,46 @@ class OwnerStoreServiceTest {
 
         assertThat(storeResponse.size()).isEqualTo(stores.getSize());
         assertThat(storeResponse.get(0).name()).isEqualTo(storeList.get(0).getName());
+    }
+
+    @Test
+    @DisplayName("가게 상태를 영업중으로 바꾼다")
+    void storeOpenTest() {
+        Long id = 1L;
+
+        Owner owner = Owner.builder()
+            .id(id)
+            .build();
+
+        Store store = Store.builder()
+            .id(id)
+            .owner(owner)
+            .build();
+
+        when(storeRepository.findById(id)).thenReturn(Optional.of(store));
+        StoreResponseDto storeResponseDto = ownerStoreService.openStore(owner, id);
+
+        assertThat(storeResponseDto.storeStatus()).isEqualTo(StoreStatus.OPEN);
+    }
+
+    @Test
+    @DisplayName("가게 상태를 영업종료로 바꾼다")
+    void storeCloseTest() {
+        Long id = 1L;
+
+        Owner owner = Owner.builder()
+            .id(id)
+            .build();
+
+        Store store = Store.builder()
+            .id(id)
+            .storeStatus(StoreStatus.OPEN)
+            .owner(owner)
+            .build();
+
+        when(storeRepository.findById(id)).thenReturn(Optional.of(store));
+        StoreResponseDto storeResponseDto = ownerStoreService.closeStore(owner, id);
+
+        assertThat(storeResponseDto.storeStatus()).isEqualTo(StoreStatus.ClOSE);
     }
 }
