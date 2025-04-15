@@ -50,8 +50,8 @@ public interface OwnerStoreApi {
                       "name": "가게 이름2",
                       "phoneNumber": "02-0000-0000",
                       "address": "경상북도 경산시 대학로",
-                      "titleImageUrl": "https://example.com/image.jpg"
-                      "storeStatus": "ClOSE",
+                      "titleImageUrl": "https://example.com/image.jpg",
+                      "storeStatus": "ClOSE"
                     }
                 ]
                 """),})),})
