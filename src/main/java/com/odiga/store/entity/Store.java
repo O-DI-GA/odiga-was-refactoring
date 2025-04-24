@@ -109,7 +109,7 @@ public class Store extends BaseEntity {
         }
     }
 
-//    public void addCategory(Category category) {
-//        categories.add(category);
-//    }
+    public void addCategory(Category category) {
+        categories.add(category);
+    }
 }
