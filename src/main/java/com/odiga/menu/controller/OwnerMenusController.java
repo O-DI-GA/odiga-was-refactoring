@@ -28,7 +28,7 @@ public class OwnerMenusController implements OwnerMenuApi {
                                       @RequestPart MultipartFile menuImage,
                                       @RequestPart MenuCreateDto menuCreateDto) {
         return ResponseEntity.status(HttpStatus.CREATED)
-            .body(ownerMenuService.saveMenu(categoryId, menuImage, menuCreateDto));
+            .body(ownerMenuService.addMenu(categoryId, menuImage, menuCreateDto));
     }
 
     @GetMapping

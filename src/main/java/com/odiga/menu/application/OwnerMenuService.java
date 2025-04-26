@@ -27,7 +27,7 @@ public class OwnerMenuService {
     private final S3ImageService s3ImageService;
 
     @Transactional
-    public MenuInfoDto saveMenu(Long categoryId, MultipartFile menuImage, MenuCreateDto menuCreateDto) {
+    public MenuInfoDto addMenu(Long categoryId, MultipartFile menuImage, MenuCreateDto menuCreateDto) {
         Category category = categoryRepository.findById(categoryId)
             .orElseThrow(() -> new CustomException(CategoryErrorCode.NOT_FOUND_CATEGORY));
 
