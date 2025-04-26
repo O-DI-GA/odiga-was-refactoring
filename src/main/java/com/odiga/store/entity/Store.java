@@ -60,6 +60,7 @@ public class Store extends BaseEntity {
     @Builder.Default
     private StoreStatus storeStatus = StoreStatus.ClOSE;
 
+    @Builder.Default
     @OneToMany(mappedBy = "store")
     private List<Category> categories = new ArrayList<>();
 
@@ -109,7 +110,7 @@ public class Store extends BaseEntity {
         }
     }
 
-//    public void addCategory(Category category) {
-//        categories.add(category);
-//    }
+    public void addCategory(Category category) {
+        categories.add(category);
+    }
 }

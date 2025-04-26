@@ -4,7 +4,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.odiga.global.exception.CustomException;
+import com.odiga.menu.entity.Category;
 import com.odiga.store.exception.OwnerStoreErrorCode;
+import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -50,6 +52,24 @@ class StoreTest {
         assertThatThrownBy(store::storeClose)
             .isInstanceOf(CustomException.class)
             .hasFieldOrPropertyWithValue("errorCode", OwnerStoreErrorCode.ALREADY_CLOSE);
+    }
+
+    @Test
+    @DisplayName("가게의 카테고리 리스트에 카테고리 추기")
+    void addCategoryTest() {
+        Store store = new Store();
+
+        Category category = Category.builder()
+            .name("category1")
+            .build();
+
+        store.addCategory(category);
+
+        List<Category> categories = store.getCategories();
+        Category find = categories.stream().findFirst().get();
+
+        assertThat(categories.size()).isEqualTo(1);
+        assertThat(category.getName()).isEqualTo(find.getName());
     }
 
 }

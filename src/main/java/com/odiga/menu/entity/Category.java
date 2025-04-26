@@ -11,8 +11,16 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Getter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Category extends BaseEntity {
 
     @Id
@@ -25,15 +33,12 @@ public class Category extends BaseEntity {
     @JoinColumn(name = "STORE_ID")
     private Store store;
 
+    @Builder.Default
     @OneToMany(mappedBy = "category")
     private List<Menu> menus = new ArrayList<>();
 
-//    public void setStore(Store store) {
-//        this.store = store;
-//        store.addCategory(this);
-//    }
-//
-//    public void addMenu(Menu menu) {
-//        menus.add(menu);
-//    }
+    public void addMenu(Menu menu) {
+        menus.add(menu);
+        menu.setCategory(this);
+    }
 }
