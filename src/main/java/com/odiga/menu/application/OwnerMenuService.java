@@ -33,7 +33,7 @@ public class OwnerMenuService {
 
         String imageUrl = s3ImageService.uploadS3(DIR_NAME, menuImage);
 
-        Menu menu = menuCreateDto.toEntity(category, imageUrl);
+        Menu menu = menuCreateDto.toEntity(imageUrl);
         category.addMenu(menu);
 
         menuRepository.save(menu);

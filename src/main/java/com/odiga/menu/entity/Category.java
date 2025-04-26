@@ -39,6 +39,6 @@ public class Category extends BaseEntity {
 
     public void addMenu(Menu menu) {
         menus.add(menu);
+        menu.setCategory(this);
     }
-
 }

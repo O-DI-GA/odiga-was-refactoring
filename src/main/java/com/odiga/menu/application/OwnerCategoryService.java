@@ -41,7 +41,7 @@ public class OwnerCategoryService {
 
     @Transactional(readOnly = true)
     public List<CategoryInfoDto> findAllCategoryByStoreId(Long storeId) {
-        if (storeRepository.existsById(storeId)) {
+        if (!storeRepository.existsById(storeId)) {
             throw new CustomException(StoreErrorCode.NOT_FOUND_STORE);
         }
 
