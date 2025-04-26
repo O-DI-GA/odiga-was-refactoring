@@ -33,15 +33,12 @@ public class Category extends BaseEntity {
     @JoinColumn(name = "STORE_ID")
     private Store store;
 
+    @Builder.Default
     @OneToMany(mappedBy = "category")
     private List<Menu> menus = new ArrayList<>();
 
-//    public void setStore(Store store) {
-//        this.store = store;
-//        store.addCategory(this);
-//    }
-//
-//    public void addMenu(Menu menu) {
-//        menus.add(menu);
-//    }
+    public void addMenu(Menu menu) {
+        menus.add(menu);
+    }
+
 }

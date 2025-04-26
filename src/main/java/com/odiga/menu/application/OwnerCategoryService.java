@@ -30,10 +30,7 @@ public class OwnerCategoryService {
 
         store.validateOwner(owner.getId());
 
-        Category category = Category.builder()
-            .name(categoryCreateDto.categoryName())
-            .store(store)
-            .build();
+        Category category = categoryCreateDto.toEntity(store);
 
         categoryRepository.save(category);
 
@@ -44,8 +41,9 @@ public class OwnerCategoryService {
 
     @Transactional(readOnly = true)
     public List<CategoryInfoDto> findAllCategoryByStoreId(Long storeId) {
-        storeRepository.findById(storeId)
-            .orElseThrow(() -> new CustomException(StoreErrorCode.NOT_FOUND_STORE));
+        if (storeRepository.existsById(storeId)) {
+            throw new CustomException(StoreErrorCode.NOT_FOUND_STORE);
+        }
 
         List<Category> categories = categoryRepository.findByStoreId(storeId);
 
