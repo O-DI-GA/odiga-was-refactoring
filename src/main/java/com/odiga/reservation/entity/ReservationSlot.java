@@ -11,7 +11,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class ReservationSlot extends BaseEntity {
@@ -24,6 +27,9 @@ public class ReservationSlot extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private ReservationSlotStatus reservationSlotStatus;
+
+    @OneToMany(mappedBy = "reservationSlot")
+    private List<Reservation> reservations = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "STORE_ID")

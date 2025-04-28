@@ -5,7 +5,6 @@ import com.odiga.global.exception.CustomException;
 import com.odiga.like.entity.LikeStore;
 import com.odiga.menu.entity.Category;
 import com.odiga.owner.entity.Owner;
-import com.odiga.reservation.entity.Reservation;
 import com.odiga.reservation.entity.ReservationSlot;
 import com.odiga.review.entity.Review;
 import com.odiga.store.exception.OwnerStoreErrorCode;
@@ -72,9 +71,6 @@ public class Store extends BaseEntity {
 
     @OneToMany(mappedBy = "store")
     private List<ReservationSlot> reservationSlots = new ArrayList<>();
-
-    @OneToMany(mappedBy = "store")
-    private List<Reservation> reservations = new ArrayList<>();
 
     @OneToMany(mappedBy = "store")
     private List<Review> reviews = new ArrayList<>();

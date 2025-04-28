@@ -1,7 +1,6 @@
 package com.odiga.reservation.entity;
 
 import com.odiga.common.entity.BaseEntity;
-import com.odiga.store.entity.Store;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -23,6 +22,6 @@ public class Reservation extends BaseEntity {
     private int peopleCount;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "STORE_ID")
-    private Store store;
+    @JoinColumn(name = "RESERVATION_SLOT_ID")
+    private ReservationSlot reservationSlot;
 }
