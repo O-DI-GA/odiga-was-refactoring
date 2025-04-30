@@ -8,8 +8,6 @@ import com.odiga.reservation.dto.ReservationSlotCreateRequestDto;
 import com.odiga.reservation.dto.ReservationSlotCreateRequestDto.DaySchedule;
 import com.odiga.reservation.dto.ReservationSlotInfoDto;
 import com.odiga.reservation.entity.ReservationSlot;
-import com.odiga.reservation.entity.ReservationSlotStatus;
-import com.odiga.reservation.entity.WeekDay;
 import com.odiga.reservation.exception.ReservationSlotErrorCode;
 import com.odiga.store.dao.StoreRepository;
 import com.odiga.store.entity.Store;
@@ -56,7 +54,7 @@ public class OwnerReservationSlotService {
         Set<LocalDateTime> times = new HashSet<>();
 
         for (DaySchedule daySchedule : requestDto.daySchedules()) {
-            DayOfWeek dayOfWeek = WeekDay.of(daySchedule.dayOfWeek());
+            DayOfWeek dayOfWeek = DayOfWeek.valueOf(daySchedule.dayOfWeek().name());
             LocalTime startTime = daySchedule.startTime();
             LocalTime endTime = daySchedule.endTime();
             int interval = daySchedule.interval();
@@ -104,7 +102,7 @@ public class OwnerReservationSlotService {
         ReservationSlot reservationSlot = reservationSlotRepository
             .findById(reservationSlotId).orElseThrow(() -> new CustomException(ReservationSlotErrorCode.NOT_FOUND));
 
-        reservationSlot.changeStatus(ReservationSlotStatus.of(requestDto.status()));
+        reservationSlot.changeStatus(requestDto.status());
 
         return ReservationSlotInfoDto.from(reservationSlot);
     }

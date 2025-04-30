@@ -1,6 +1,7 @@
 package com.odiga.reservation.controller;
 
 import com.odiga.owner.entity.Owner;
+import com.odiga.reservation.api.OwnerReservationSlotApi;
 import com.odiga.reservation.application.OwnerReservationSlotService;
 import com.odiga.reservation.dto.ReservationSlotChangeStatusRequestDto;
 import com.odiga.reservation.dto.ReservationSlotCreateRequestDto;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/v1/owners/stores/{storeId}/reservation-slots")
-public class OwnerReservationSlotController {
+public class OwnerReservationSlotController implements OwnerReservationSlotApi {
 
     private final OwnerReservationSlotService ownerReservationSlotService;
 
