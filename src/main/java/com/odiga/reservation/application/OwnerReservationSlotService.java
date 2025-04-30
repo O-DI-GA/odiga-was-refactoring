@@ -3,10 +3,12 @@ package com.odiga.reservation.application;
 import com.odiga.global.exception.CustomException;
 import com.odiga.owner.entity.Owner;
 import com.odiga.reservation.dao.ReservationSlotRepository;
+import com.odiga.reservation.dto.ReservationSlotChangeStatusRequestDto;
 import com.odiga.reservation.dto.ReservationSlotCreateRequestDto;
 import com.odiga.reservation.dto.ReservationSlotCreateRequestDto.DaySchedule;
 import com.odiga.reservation.dto.ReservationSlotInfoDto;
 import com.odiga.reservation.entity.ReservationSlot;
+import com.odiga.reservation.entity.ReservationSlotStatus;
 import com.odiga.reservation.entity.WeekDay;
 import com.odiga.reservation.exception.ReservationSlotErrorCode;
 import com.odiga.store.dao.StoreRepository;
@@ -28,7 +30,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class OwnerReservationService {
+public class OwnerReservationSlotService {
 
     private final StoreRepository storeRepository;
     private final ReservationSlotRepository reservationSlotRepository;
@@ -89,6 +91,22 @@ public class OwnerReservationService {
         reservationSlotRepository.saveAll(result);
 
         return result.stream().map(ReservationSlotInfoDto::from).toList();
+    }
+
+    @Transactional
+    public ReservationSlotInfoDto changeStatusById(Owner owner, Long storeId, Long reservationSlotId,
+                                                   ReservationSlotChangeStatusRequestDto requestDto) {
+        Store store = storeRepository.findById(storeId)
+            .orElseThrow(() -> new CustomException(StoreErrorCode.NOT_FOUND_STORE));
+
+        store.validateOwner(owner.getId());
+
+        ReservationSlot reservationSlot = reservationSlotRepository
+            .findById(reservationSlotId).orElseThrow(() -> new CustomException(ReservationSlotErrorCode.NOT_FOUND));
+
+        reservationSlot.changeStatus(ReservationSlotStatus.of(requestDto.status()));
+
+        return ReservationSlotInfoDto.from(reservationSlot);
     }
 
     @Transactional

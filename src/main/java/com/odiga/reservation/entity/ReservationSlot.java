@@ -37,7 +37,7 @@ public class ReservationSlot extends BaseEntity {
 
     @Builder.Default
     @Enumerated(EnumType.STRING)
-    private ReservationSlotStatus reservationSlotStatus = ReservationSlotStatus.EMPTY;
+    private ReservationSlotStatus reservationSlotStatus = ReservationSlotStatus.AVAILABLE;
 
     @Builder.Default
     @OneToMany(mappedBy = "reservationSlot")
@@ -51,5 +51,9 @@ public class ReservationSlot extends BaseEntity {
         if (!store.getId().equals(storeId)) {
             throw new CustomException(GlobalErrorCode.BAD_REQUEST);
         }
+    }
+
+    public void changeStatus(ReservationSlotStatus status) {
+        reservationSlotStatus = status;
     }
 }

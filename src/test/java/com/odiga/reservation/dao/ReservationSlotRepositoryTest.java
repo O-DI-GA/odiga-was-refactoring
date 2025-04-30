@@ -54,7 +54,7 @@ class ReservationSlotRepositoryTest {
 
         reservationSlotRepository.save(reservationSlot);
 
-        Assertions.assertThat(reservationSlot.getReservationSlotStatus()).isEqualTo(ReservationSlotStatus.EMPTY);
+        Assertions.assertThat(reservationSlot.getReservationSlotStatus()).isEqualTo(ReservationSlotStatus.AVAILABLE);
     }
 
     @Test

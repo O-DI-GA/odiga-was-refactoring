@@ -23,6 +23,7 @@ public interface OwnerStoreApi {
         @ApiResponse(responseCode = "201", content = @Content(mediaType = "application/json", examples = {
             @ExampleObject(name = "가게 등록 성공", value = """
                 {
+                  "storeId": 1,
                   "name": "가게 이름",
                   "phoneNumber": "02-0000-0000",
                   "address": "경상북도 경산시 대학로",
@@ -40,6 +41,7 @@ public interface OwnerStoreApi {
             @ExampleObject(name = "가게 조회 성공", value = """
                 [
                     {
+                      "storeId": 1,
                       "name": "가게 이름",
                       "phoneNumber": "02-0000-0000",
                       "address": "경상북도 경산시 대학로",
@@ -47,6 +49,7 @@ public interface OwnerStoreApi {
                       "storeStatus": "ClOSE"
                     },
                     {
+                      "storeId": 2,
                       "name": "가게 이름2",
                       "phoneNumber": "02-0000-0000",
                       "address": "경상북도 경산시 대학로",
@@ -62,6 +65,7 @@ public interface OwnerStoreApi {
             @ExampleObject(name = "가게 상태 변경 성공", value = """
                 [
                     {
+                      "storeId": 1,
                       "name": "가게 이름",
                       "phoneNumber": "02-0000-0000",
                       "address": "경상북도 경산시 대학로",
@@ -77,6 +81,7 @@ public interface OwnerStoreApi {
             @ExampleObject(name = "가게 상태 변경 성공", value = """
                 [
                     {
+                      "storeId": 1,
                       "name": "가게 이름",
                       "phoneNumber": "02-0000-0000",
                       "address": "경상북도 경산시 대학로",
