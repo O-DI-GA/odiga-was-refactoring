@@ -86,7 +86,7 @@ public class OwnerReservationSlotService {
             store.addReservationSlot(reservationSlot);
         }
 
-        reservationSlotRepository.saveAll(result);
+        reservationSlotRepository.saveAllBatch(result);
 
         return result.stream().map(ReservationSlotInfoDto::from).toList();
     }
