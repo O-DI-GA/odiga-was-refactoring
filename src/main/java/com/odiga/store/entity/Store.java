@@ -69,6 +69,7 @@ public class Store extends BaseEntity {
     @OneToMany(mappedBy = "store")
     private List<Waiting> waitingList = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "store")
     private List<ReservationSlot> reservationSlots = new ArrayList<>();
 

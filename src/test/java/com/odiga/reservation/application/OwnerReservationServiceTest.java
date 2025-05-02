@@ -1,13 +1,10 @@
 package com.odiga.reservation.application;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.odiga.global.exception.CustomException;
-import com.odiga.global.exception.GlobalErrorCode;
 import com.odiga.owner.entity.Owner;
 import com.odiga.reservation.dao.ReservationRepository;
 import com.odiga.reservation.dao.ReservationSlotRepository;
@@ -17,6 +14,7 @@ import com.odiga.reservation.dto.ReservationSlotCreateRequestDto.DaySchedule;
 import com.odiga.reservation.dto.ReservationSlotInfoDto;
 import com.odiga.reservation.entity.ReservationSlot;
 import com.odiga.reservation.entity.ReservationSlotStatus;
+import com.odiga.reservation.entity.WeekDay;
 import com.odiga.store.dao.StoreRepository;
 import com.odiga.store.entity.Store;
 import java.time.LocalTime;
@@ -61,7 +59,7 @@ class OwnerReservationServiceTest {
         when(storeRepository.findById(storeId)).thenReturn(Optional.of(store));
 
         DaySchedule daySchedule =
-            new DaySchedule("MONDAY", LocalTime.of(9, 0), LocalTime.of(9, 30), 30);
+            new DaySchedule(WeekDay.MONDAY, LocalTime.of(9, 0), LocalTime.of(9, 30), 30);
 
         ReservationSlotCreateRequestDto requestDto = new ReservationSlotCreateRequestDto(2025, 4, List.of(daySchedule));
         List<ReservationSlotInfoDto> result = ownerReservationSlotService.addAvailableReservationTime(owner, storeId, requestDto);
@@ -96,28 +94,10 @@ class OwnerReservationServiceTest {
 
         ReservationSlotStatus reservationSlotStatus = ReservationSlotStatus.AVAILABLE;
 
-        ReservationSlotChangeStatusRequestDto requestDto = new ReservationSlotChangeStatusRequestDto(reservationSlotStatus.name());
+        ReservationSlotChangeStatusRequestDto requestDto = new ReservationSlotChangeStatusRequestDto(reservationSlotStatus);
 
         ReservationSlotInfoDto reservationSlotInfoDto = ownerReservationSlotService.changeStatusById(owner, storeId, reservationSlotId, requestDto);
 
         assertThat(reservationSlotInfoDto.status()).isEqualTo(reservationSlotStatus);
-    }
-
-    @Test
-    void changeSlotStatusFailTest() {
-        Long reservationSlotId = 1L;
-
-        ReservationSlot reservationSlot = ReservationSlot.builder()
-            .store(store)
-            .build();
-
-        when(storeRepository.findById(storeId)).thenReturn(Optional.of(store));
-        when(reservationSlotRepository.findById(reservationSlotId)).thenReturn(Optional.of(reservationSlot));
-
-        ReservationSlotChangeStatusRequestDto requestDto = new ReservationSlotChangeStatusRequestDto("use");
-
-        assertThatThrownBy(() -> ownerReservationSlotService.changeStatusById(owner, storeId, reservationSlotId, requestDto))
-            .isInstanceOf(CustomException.class)
-            .hasFieldOrPropertyWithValue("errorCode", GlobalErrorCode.BAD_REQUEST);
     }
 }
