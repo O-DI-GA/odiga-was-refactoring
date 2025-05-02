@@ -1,7 +1,7 @@
 package com.odiga.reservation.dto;
 
 import com.odiga.reservation.entity.ReservationSlot;
-import com.odiga.reservation.entity.ReservationSlotStatus;
+import com.odiga.reservation.enums.ReservationSlotStatus;
 import java.time.LocalDateTime;
 
 public record ReservationSlotInfoDto(Long reservationSlotId, LocalDateTime reservationTime,

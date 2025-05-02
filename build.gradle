@@ -117,7 +117,8 @@ private excludedClassFilesForReport(classDirectories) {
                         "**/*domain*/**",
                         "**/*Application*",
                         "**/controller/**",
-                        '**/exception/**'
+                        "**/exception/**",
+                        "**/enums/**"
                 ])
             })
     )

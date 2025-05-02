@@ -11,7 +11,7 @@ import com.odiga.store.dao.StoreRepository;
 import com.odiga.store.dto.StoreRegisterRequestDto;
 import com.odiga.store.dto.StoreResponseDto;
 import com.odiga.store.entity.Store;
-import com.odiga.store.entity.StoreStatus;
+import com.odiga.store.enums.StoreStatus;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

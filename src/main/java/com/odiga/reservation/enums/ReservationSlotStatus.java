@@ -1,4 +1,4 @@
-package com.odiga.reservation.entity;
+package com.odiga.reservation.enums;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.odiga.global.exception.CustomException;

@@ -2,7 +2,7 @@ package com.odiga.store.dto;
 
 
 import com.odiga.store.entity.Store;
-import com.odiga.store.entity.StoreStatus;
+import com.odiga.store.enums.StoreStatus;
 
 public record StoreResponseDto(Long storeId, String name, String phoneNumber, String address,
                                String titleImageUrl, StoreStatus storeStatus) {

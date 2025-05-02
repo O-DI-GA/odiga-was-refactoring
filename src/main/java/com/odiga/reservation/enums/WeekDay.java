@@ -1,9 +1,8 @@
-package com.odiga.reservation.entity;
+package com.odiga.reservation.enums;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.odiga.global.exception.CustomException;
 import com.odiga.global.exception.GlobalErrorCode;
-import java.time.DayOfWeek;
 import java.util.Arrays;
 
 public enum WeekDay {

@@ -4,7 +4,7 @@ import com.odiga.global.config.JpaConfig;
 import com.odiga.owner.dao.OwnerRepository;
 import com.odiga.owner.entity.Owner;
 import com.odiga.reservation.entity.ReservationSlot;
-import com.odiga.reservation.entity.ReservationSlotStatus;
+import com.odiga.reservation.enums.ReservationSlotStatus;
 import com.odiga.store.dao.StoreRepository;
 import com.odiga.store.entity.Store;
 import java.time.LocalDate;

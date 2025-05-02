@@ -1,4 +1,4 @@
-package com.odiga.table.entity;
+package com.odiga.table.enums;
 
 public enum TableStatus {
     EMPTY, INUSE

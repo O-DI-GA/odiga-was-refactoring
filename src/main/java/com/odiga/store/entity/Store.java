@@ -7,6 +7,7 @@ import com.odiga.menu.entity.Category;
 import com.odiga.owner.entity.Owner;
 import com.odiga.reservation.entity.ReservationSlot;
 import com.odiga.review.entity.Review;
+import com.odiga.store.enums.StoreStatus;
 import com.odiga.store.exception.OwnerStoreErrorCode;
 import com.odiga.table.entity.StoreTable;
 import com.odiga.waiting.entity.Waiting;

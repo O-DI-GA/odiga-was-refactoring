@@ -3,6 +3,7 @@ package com.odiga.reservation.entity;
 import com.odiga.common.entity.BaseEntity;
 import com.odiga.global.exception.CustomException;
 import com.odiga.global.exception.GlobalErrorCode;
+import com.odiga.reservation.enums.ReservationSlotStatus;
 import com.odiga.store.entity.Store;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

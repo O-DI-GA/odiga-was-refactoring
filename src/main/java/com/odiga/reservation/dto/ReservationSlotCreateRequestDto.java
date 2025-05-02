@@ -1,8 +1,7 @@
 package com.odiga.reservation.dto;
 
-import com.odiga.reservation.entity.WeekDay;
+import com.odiga.reservation.enums.WeekDay;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.List;
 
