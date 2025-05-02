@@ -15,7 +15,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.context.annotation.Import;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.test.context.ActiveProfiles;
 
+@ActiveProfiles("test")
 @Import(TestConfig.class)
 @SpringBootTest(webEnvironment = WebEnvironment.NONE)
 class OwnerUserDetailsServiceTest {
