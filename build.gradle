@@ -118,7 +118,9 @@ private excludedClassFilesForReport(classDirectories) {
                         "**/*Application*",
                         "**/controller/**",
                         "**/exception/**",
-                        "**/enums/**"
+                        "**/enums/**",
+                        "**/Q*.class",          // QueryDSL Q classes
+                        "**/generated/**"
                 ])
             })
     )
