@@ -92,12 +92,14 @@ public class OwnerReservationSlotService {
     }
 
     @Transactional(readOnly = true)
-    public List<ReservationSlotInfoDto> findByStoreIdAndBetweenReservationTime(Long storeId,
+    public List<ReservationSlotInfoDto> findByStoreIdAndBetweenReservationTime(Owner owner,
+                                                                               Long storeId,
                                                                                LocalDate startDate,
                                                                                LocalDate endDate) {
-        if (!storeRepository.existsById(storeId)) {
-            throw new CustomException(StoreErrorCode.NOT_FOUND_STORE);
-        }
+        Store store = storeRepository.findById(storeId)
+            .orElseThrow(() -> new CustomException(StoreErrorCode.NOT_FOUND_STORE));
+
+        store.validateOwner(owner.getId());
 
         List<ReservationSlot> reservationSlots = reservationSlotRepository.findByStoreIdAndBetweenReservationTime(storeId, startDate, endDate);
 

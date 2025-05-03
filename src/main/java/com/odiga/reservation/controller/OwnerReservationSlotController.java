@@ -36,11 +36,12 @@ public class OwnerReservationSlotController implements OwnerReservationSlotApi {
     }
 
     @GetMapping
-    public ResponseEntity<?> findBetweenDate(@PathVariable Long storeId,
+    public ResponseEntity<?> findBetweenDate(@AuthenticationPrincipal Owner owner,
+                                             @PathVariable Long storeId,
                                              @RequestParam LocalDate startDate,
                                              @RequestParam LocalDate endDate) {
         return ResponseEntity.ok()
-            .body(ownerReservationSlotService.findByStoreIdAndBetweenReservationTime(storeId, startDate, endDate));
+            .body(ownerReservationSlotService.findByStoreIdAndBetweenReservationTime(owner, storeId, startDate, endDate));
     }
 
     @DeleteMapping("{reservationSlotId}")

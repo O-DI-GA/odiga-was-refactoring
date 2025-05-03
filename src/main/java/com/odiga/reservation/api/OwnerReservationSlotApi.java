@@ -96,7 +96,8 @@ public interface OwnerReservationSlotApi {
                   "message": "존재하지 않는 가게 입니다."
                 }
                 """),}))})
-    ResponseEntity<?> findBetweenDate(@PathVariable Long storeId,
+    ResponseEntity<?> findBetweenDate(@AuthenticationPrincipal Owner owner,
+                                      @PathVariable Long storeId,
                                       @RequestParam LocalDate startDate,
                                       @RequestParam LocalDate endDate);
 
