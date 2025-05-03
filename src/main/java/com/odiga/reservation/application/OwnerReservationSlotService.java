@@ -91,6 +91,19 @@ public class OwnerReservationSlotService {
         return result.stream().map(ReservationSlotInfoDto::from).toList();
     }
 
+    @Transactional(readOnly = true)
+    public List<ReservationSlotInfoDto> findByStoreIdAndBetweenReservationTime(Long storeId,
+                                                                               LocalDate startDate,
+                                                                               LocalDate endDate) {
+        if (!storeRepository.existsById(storeId)) {
+            throw new CustomException(StoreErrorCode.NOT_FOUND_STORE);
+        }
+
+        List<ReservationSlot> reservationSlots = reservationSlotRepository.findByStoreIdAndBetweenReservationTime(storeId, startDate, endDate);
+
+        return reservationSlots.stream().map(ReservationSlotInfoDto::from).toList();
+    }
+
     @Transactional
     public ReservationSlotInfoDto changeStatusById(Owner owner, Long storeId, Long reservationSlotId,
                                                    ReservationSlotChangeStatusRequestDto requestDto) {
