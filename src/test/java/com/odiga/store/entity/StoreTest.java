@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.odiga.global.exception.CustomException;
 import com.odiga.menu.entity.Category;
+import com.odiga.store.enums.StoreStatus;
 import com.odiga.store.exception.OwnerStoreErrorCode;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;

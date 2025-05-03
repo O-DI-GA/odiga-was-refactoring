@@ -24,6 +24,20 @@ repositories {
     mavenCentral()
 }
 
+def queryDslSrcDir = 'src/main/generated/querydsl/'
+
+tasks.withType(JavaCompile).configureEach {
+    options.getGeneratedSourceOutputDirectory().set(file(queryDslSrcDir))
+}
+
+sourceSets {
+    main.java.srcDirs += [queryDslSrcDir]
+}
+
+clean.doLast {
+    file(queryDslSrcDir).deleteDir()
+}
+
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-security'
@@ -35,6 +49,12 @@ dependencies {
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.7.0'
 
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    // querydsl
+    implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
+    annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jakarta"
+    annotationProcessor "jakarta.annotation:jakarta.annotation-api"
+    annotationProcessor "jakarta.persistence:jakarta.persistence-api"
 
     implementation group: 'org.hibernate', name: 'hibernate-spatial', version: '6.6.12.Final'
     runtimeOnly 'com.h2database:h2'
@@ -97,8 +117,12 @@ private excludedClassFilesForReport(classDirectories) {
                         "**/*domain*/**",
                         "**/*Application*",
                         "**/controller/**",
-                        '**/exception/**'
+                        "**/exception/**",
+                        "**/enums/**",
+                        "**/Q*.class",          // QueryDSL Q classes
+                        "**/generated/**"
                 ])
             })
     )
 }
+

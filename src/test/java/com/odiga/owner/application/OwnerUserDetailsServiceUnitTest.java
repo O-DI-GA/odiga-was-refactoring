@@ -3,7 +3,7 @@ package com.odiga.owner.application;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
-import com.odiga.common.type.Role;
+import com.odiga.common.enums.Role;
 import com.odiga.owner.dao.OwnerRepository;
 import com.odiga.owner.entity.Owner;
 import java.util.Optional;

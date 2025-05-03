@@ -3,7 +3,7 @@ package com.odiga.global.jwt;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import com.odiga.common.type.Role;
+import com.odiga.common.enums.Role;
 import com.odiga.config.TestConfig;
 import com.odiga.owner.application.OwnerUserDetailsService;
 import com.odiga.owner.dao.OwnerRepository;
@@ -21,7 +21,9 @@ import org.springframework.context.annotation.Import;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.test.context.ActiveProfiles;
 
+@ActiveProfiles("test")
 @Import(TestConfig.class)
 @SpringBootTest(webEnvironment = WebEnvironment.NONE)
 class JwtTokenProviderTest {

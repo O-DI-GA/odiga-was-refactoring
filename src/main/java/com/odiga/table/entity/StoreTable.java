@@ -3,6 +3,7 @@ package com.odiga.table.entity;
 import com.odiga.common.entity.BaseEntity;
 import com.odiga.order.entity.TableOrder;
 import com.odiga.store.entity.Store;
+import com.odiga.table.enums.TableStatus;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;

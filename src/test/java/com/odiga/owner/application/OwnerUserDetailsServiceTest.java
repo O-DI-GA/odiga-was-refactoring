@@ -2,7 +2,7 @@ package com.odiga.owner.application;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.odiga.common.type.Role;
+import com.odiga.common.enums.Role;
 import com.odiga.config.TestConfig;
 import com.odiga.owner.dao.OwnerRepository;
 import com.odiga.owner.entity.Owner;
@@ -15,7 +15,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.context.annotation.Import;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.test.context.ActiveProfiles;
 
+@ActiveProfiles("test")
 @Import(TestConfig.class)
 @SpringBootTest(webEnvironment = WebEnvironment.NONE)
 class OwnerUserDetailsServiceTest {

@@ -1,6 +1,7 @@
 package com.odiga.order.entity;
 
 import com.odiga.common.entity.BaseEntity;
+import com.odiga.order.enums.TableOrderStatus;
 import com.odiga.table.entity.StoreTable;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;

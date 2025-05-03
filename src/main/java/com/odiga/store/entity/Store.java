@@ -5,9 +5,9 @@ import com.odiga.global.exception.CustomException;
 import com.odiga.like.entity.LikeStore;
 import com.odiga.menu.entity.Category;
 import com.odiga.owner.entity.Owner;
-import com.odiga.reservation.entity.Reservation;
 import com.odiga.reservation.entity.ReservationSlot;
 import com.odiga.review.entity.Review;
+import com.odiga.store.enums.StoreStatus;
 import com.odiga.store.exception.OwnerStoreErrorCode;
 import com.odiga.table.entity.StoreTable;
 import com.odiga.waiting.entity.Waiting;
@@ -70,11 +70,9 @@ public class Store extends BaseEntity {
     @OneToMany(mappedBy = "store")
     private List<Waiting> waitingList = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "store")
     private List<ReservationSlot> reservationSlots = new ArrayList<>();
-
-    @OneToMany(mappedBy = "store")
-    private List<Reservation> reservations = new ArrayList<>();
 
     @OneToMany(mappedBy = "store")
     private List<Review> reviews = new ArrayList<>();
@@ -112,5 +110,9 @@ public class Store extends BaseEntity {
 
     public void addCategory(Category category) {
         categories.add(category);
+    }
+
+    public void addReservationSlot(ReservationSlot reservationSlot) {
+        reservationSlots.add(reservationSlot);
     }
 }
