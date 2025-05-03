@@ -1,7 +1,7 @@
 package com.odiga.owner.entity;
 
 import com.odiga.common.entity.BaseEntity;
-import com.odiga.common.type.Role;
+import com.odiga.common.enums.Role;
 import com.odiga.store.entity.Store;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

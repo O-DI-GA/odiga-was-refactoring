@@ -3,7 +3,7 @@ package com.odiga.global.jwt;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import com.odiga.common.type.Role;
+import com.odiga.common.enums.Role;
 import com.odiga.config.TestConfig;
 import com.odiga.owner.application.OwnerUserDetailsService;
 import com.odiga.owner.dao.OwnerRepository;
