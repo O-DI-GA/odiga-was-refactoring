@@ -17,4 +17,9 @@ public class GlobalExceptionHandler {
             .body(ErrorResponse.of(errorCode.getMessage()));
     }
 
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<?> exceptionHandler(Exception ex) {
+        return ResponseEntity.status(GlobalErrorCode.INTERNAL_SERVER.getHttpStatus())
+            .body(ErrorResponse.of(GlobalErrorCode.INTERNAL_SERVER.getMessage()));
+    }
 }
