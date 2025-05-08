@@ -6,6 +6,7 @@ import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -24,9 +25,12 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> exceptionHandler(Exception ex) {
-        log.error(ex.getMessage());
-
         return handleExceptionInternal(GlobalErrorCode.INTERNAL_SERVER);
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<?> httpMessageNotReadableException(HttpMessageNotReadableException ex) {
+        return handleExceptionInternal(GlobalErrorCode.INVALID_JSON);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
