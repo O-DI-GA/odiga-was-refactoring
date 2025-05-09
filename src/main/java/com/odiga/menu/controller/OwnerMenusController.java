@@ -3,6 +3,7 @@ package com.odiga.menu.controller;
 import com.odiga.menu.api.OwnerMenuApi;
 import com.odiga.menu.application.OwnerMenuService;
 import com.odiga.menu.dto.MenuCreateDto;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -26,7 +27,7 @@ public class OwnerMenusController implements OwnerMenuApi {
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> saveMenu(@PathVariable Long categoryId,
                                       @RequestPart MultipartFile menuImage,
-                                      @RequestPart MenuCreateDto menuCreateDto) {
+                                      @Valid @RequestPart MenuCreateDto menuCreateDto) {
         return ResponseEntity.status(HttpStatus.CREATED)
             .body(ownerMenuService.addMenu(categoryId, menuImage, menuCreateDto));
     }

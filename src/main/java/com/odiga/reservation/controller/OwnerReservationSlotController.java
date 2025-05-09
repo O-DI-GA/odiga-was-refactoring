@@ -5,6 +5,7 @@ import com.odiga.reservation.api.OwnerReservationSlotApi;
 import com.odiga.reservation.application.OwnerReservationSlotService;
 import com.odiga.reservation.dto.ReservationSlotChangeStatusRequestDto;
 import com.odiga.reservation.dto.ReservationSlotCreateRequestDto;
+import jakarta.validation.Valid;
 import java.time.LocalDate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -30,7 +31,7 @@ public class OwnerReservationSlotController implements OwnerReservationSlotApi {
     @PostMapping
     public ResponseEntity<?> addReservationSlot(@AuthenticationPrincipal Owner owner,
                                                 @PathVariable Long storeId,
-                                                @RequestBody ReservationSlotCreateRequestDto requestDto) {
+                                                @Valid @RequestBody ReservationSlotCreateRequestDto requestDto) {
         return ResponseEntity.status(HttpStatus.CREATED)
             .body(ownerReservationSlotService.addAvailableReservationTime(owner, storeId, requestDto));
     }
