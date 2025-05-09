@@ -26,9 +26,13 @@ public class JwtExceptionFilter extends OncePerRequestFilter {
     private void sendErrorResponse(HttpServletResponse response, ErrorCode errorCode)
         throws IOException {
 
+        ErrorResponse errorResponse = ErrorResponse.builder()
+            .message(errorCode.getMessage())
+            .build();
+
         response.setContentType("application/json;charset=UTF-8");
         response.setStatus(errorCode.getHttpStatus().value());
-        response.getWriter().write(new ObjectMapper().writeValueAsString(ErrorResponse.of(errorCode.getMessage())));
+        response.getWriter().write(new ObjectMapper().writeValueAsString(errorResponse));
         response.getWriter().flush();
         response.getWriter().close();
     }

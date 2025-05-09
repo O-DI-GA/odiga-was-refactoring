@@ -4,6 +4,7 @@ import com.odiga.menu.api.OwnerCategoryApi;
 import com.odiga.menu.application.OwnerCategoryService;
 import com.odiga.menu.dto.CategoryCreateDto;
 import com.odiga.owner.entity.Owner;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +27,7 @@ public class OwnerCategoryController implements OwnerCategoryApi {
     @PostMapping
     public ResponseEntity<?> addCategory(@AuthenticationPrincipal Owner owner,
                                          @PathVariable Long storeId,
-                                         @RequestBody CategoryCreateDto categoryCreateDto) {
+                                         @Valid @RequestBody CategoryCreateDto categoryCreateDto) {
         return ResponseEntity.status(HttpStatus.CREATED)
             .body(ownerCategoryService.saveCategoryByStoreId(owner, storeId, categoryCreateDto));
     }

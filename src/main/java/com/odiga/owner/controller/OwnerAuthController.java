@@ -4,6 +4,7 @@ import com.odiga.owner.api.OwnerAuthApi;
 import com.odiga.owner.application.OwnerAuthService;
 import com.odiga.owner.dto.OwnerLoginRequestDto;
 import com.odiga.owner.dto.OwnerSignupRequestDto;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,14 +21,14 @@ public class OwnerAuthController implements OwnerAuthApi {
     private final OwnerAuthService ownerAuthService;
 
     @PostMapping("signup")
-    public ResponseEntity<?> ownerSignup(@RequestBody OwnerSignupRequestDto ownerSignupRequestDto) {
+    public ResponseEntity<?> ownerSignup(@Valid @RequestBody OwnerSignupRequestDto ownerSignupRequestDto) {
         return ResponseEntity.status(HttpStatus.CREATED)
             .body(ownerAuthService.signupOwner(ownerSignupRequestDto));
     }
 
 
     @PostMapping("login")
-    public ResponseEntity<?> ownerLogin(@RequestBody OwnerLoginRequestDto ownerLoginRequestDto) {
+    public ResponseEntity<?> ownerLogin(@Valid @RequestBody OwnerLoginRequestDto ownerLoginRequestDto) {
         return ResponseEntity.status(HttpStatus.OK)
             .body(ownerAuthService.loginOwner(ownerLoginRequestDto));
     }
