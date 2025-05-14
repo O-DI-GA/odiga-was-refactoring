@@ -1,5 +1,6 @@
 package com.odiga.global.exception;
 
+import com.odiga.common.dto.ApiResponse;
 import com.odiga.global.exception.ErrorResponse.ValidationError;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -36,7 +37,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> methodArgumentNotValidException(MethodArgumentNotValidException ex) {
 
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(makeErrorResponse(ex));
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ApiResponse.fail(makeErrorResponse(ex)));
     }
 
     private ResponseEntity<?> handleExceptionInternal(ErrorCode errorCode) {
@@ -44,7 +45,7 @@ public class GlobalExceptionHandler {
             .message(errorCode.getMessage())
             .build();
 
-        return ResponseEntity.status(errorCode.getHttpStatus()).body(errorResponse);
+        return ResponseEntity.status(errorCode.getHttpStatus()).body(ApiResponse.fail(errorResponse));
     }
 
     private ErrorResponse makeErrorResponse(BindException ex) {

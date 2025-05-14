@@ -75,19 +75,20 @@ public class OwnerReservationSlotService {
             }
         }
 
-        List<ReservationSlot> result = new ArrayList<>();
+        List<ReservationSlot> saveList = new ArrayList<>();
         for (LocalDateTime dateTime : times) {
             ReservationSlot reservationSlot = ReservationSlot.builder()
                 .reservationTime(dateTime)
                 .store(store)
                 .build();
 
-            result.add(reservationSlot);
+            saveList.add(reservationSlot);
             store.addReservationSlot(reservationSlot);
         }
 
-        reservationSlotRepository.saveAllBatch(result);
+        reservationSlotRepository.saveAllBatch(saveList);
 
+        List<ReservationSlot> result = reservationSlotRepository.findByStoreIdAndBetweenReservationTime(storeId, startDate, endDate);
         return result.stream().map(ReservationSlotInfoDto::from).toList();
     }
 
