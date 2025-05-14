@@ -19,14 +19,20 @@ public interface OwnerCategoryApi {
         @ApiResponse(responseCode = "201", content = @Content(mediaType = "application/json", examples = {
             @ExampleObject(name = "카테고리 생성 성공", value = """
                 {
-                  "categoryId": 1,
-                  "categoryName": "카테고리"
+                    "success": true,
+                    "data": {
+                        "categoryId": 1,
+                        "categoryName": "카테고리"
+                    }
                 }
                 """),})),
         @ApiResponse(responseCode = "404", content = @Content(mediaType = "application/json", examples = {
             @ExampleObject(name = "카테고리 생성 실패", value = """
                 {
-                  "message": "존재하지 않는 가게 입니다."
+                    "success": false,
+                    "error": {
+                        "message": "존재하지 않는 가게 입니다."
+                    }
                 }
                 """),}))})
     ResponseEntity<?> addCategory(@AuthenticationPrincipal Owner owner,
@@ -36,21 +42,27 @@ public interface OwnerCategoryApi {
     @ApiResponses({
         @ApiResponse(responseCode = "200", content = @Content(mediaType = "application/json", examples = {
             @ExampleObject(name = "카테고리 조회 성공", value = """
-                [
-                    {
-                      "categoryId": 1,
-                      "categoryName": "카테고리"
-                    },
-                    {
-                      "categoryId": 2,
-                      "categoryName": "카테고리2"
-                    }
-                ]
+                {
+                    "success": true,
+                    "data": [
+                        {
+                          "categoryId": 1,
+                          "categoryName": "카테고리"
+                        },
+                        {
+                          "categoryId": 2,
+                          "categoryName": "카테고리2"
+                        }
+                    ]
+                }
                 """),})),
         @ApiResponse(responseCode = "404", content = @Content(mediaType = "application/json", examples = {
             @ExampleObject(name = "카테고리 조회 실패", value = """
                 {
-                  "message": "존재하지 않는 가게 입니다."
+                    "success": false,
+                    "error": {
+                        "message": "존재하지 않는 가게 입니다."
+                    }
                 }
                 """),}))})
     ResponseEntity<?> findAllCategoryByStoreId(@PathVariable Long storeId);
@@ -60,13 +72,19 @@ public interface OwnerCategoryApi {
         @ApiResponse(responseCode = "404", content = @Content(mediaType = "application/json", examples = {
             @ExampleObject(name = "카테고리 삭제 실패", value = """
                 {
-                  "message": "존재하지 않는 가게 입니다."
+                    "success": false,
+                    "error": {
+                        "message": "존재하지 않는 가게 입니다."
+                    }
                 }
                 """),})),
         @ApiResponse(responseCode = "404", content = @Content(mediaType = "application/json", examples = {
             @ExampleObject(name = "카테고리 삭제 실패", value = """
                 {
-                  "message": "존재하지 않는 카테고리 입니다."
+                    "success": false,
+                    "error": {
+                        "message": "존재하지 않는 카테고리 입니다."
+                    }
                 }
                 """),}))})
     ResponseEntity<?> deleteCategoryByCategoryId(@AuthenticationPrincipal Owner owner,

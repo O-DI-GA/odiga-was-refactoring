@@ -1,5 +1,6 @@
 package com.odiga.reservation.controller;
 
+import com.odiga.common.dto.ApiResponse;
 import com.odiga.owner.entity.Owner;
 import com.odiga.reservation.api.OwnerReservationSlotApi;
 import com.odiga.reservation.application.OwnerReservationSlotService;
@@ -33,7 +34,7 @@ public class OwnerReservationSlotController implements OwnerReservationSlotApi {
                                                 @PathVariable Long storeId,
                                                 @Valid @RequestBody ReservationSlotCreateRequestDto requestDto) {
         return ResponseEntity.status(HttpStatus.CREATED)
-            .body(ownerReservationSlotService.addAvailableReservationTime(owner, storeId, requestDto));
+            .body(ApiResponse.ok(ownerReservationSlotService.addAvailableReservationTime(owner, storeId, requestDto)));
     }
 
     @GetMapping
@@ -42,7 +43,7 @@ public class OwnerReservationSlotController implements OwnerReservationSlotApi {
                                              @RequestParam LocalDate startDate,
                                              @RequestParam LocalDate endDate) {
         return ResponseEntity.ok()
-            .body(ownerReservationSlotService.findByStoreIdAndBetweenReservationTime(owner, storeId, startDate, endDate));
+            .body(ApiResponse.ok(ownerReservationSlotService.findByStoreIdAndBetweenReservationTime(owner, storeId, startDate, endDate)));
     }
 
     @DeleteMapping("{reservationSlotId}")
@@ -59,6 +60,6 @@ public class OwnerReservationSlotController implements OwnerReservationSlotApi {
                                               @PathVariable Long reservationSlotId,
                                               @RequestBody ReservationSlotChangeStatusRequestDto requestDto) {
         return ResponseEntity.ok()
-            .body(ownerReservationSlotService.changeStatusById(owner, storeId, reservationSlotId, requestDto));
+            .body(ApiResponse.ok(ownerReservationSlotService.changeStatusById(owner, storeId, reservationSlotId, requestDto)));
     }
 }

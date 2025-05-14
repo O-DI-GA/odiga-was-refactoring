@@ -57,6 +57,7 @@ public class OwnerCategoryService {
 
         store.validateOwner(owner.getId());
 
+        // TODO : category pk를 fk로 가지고 있는 menu의 cascade 전략 필요
         Category category = categoryRepository.findById(categoryId)
             .orElseThrow(() -> new CustomException(CategoryErrorCode.NOT_FOUND_CATEGORY));
 

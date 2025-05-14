@@ -1,5 +1,6 @@
 package com.odiga.menu.controller;
 
+import com.odiga.common.dto.ApiResponse;
 import com.odiga.menu.api.OwnerCategoryApi;
 import com.odiga.menu.application.OwnerCategoryService;
 import com.odiga.menu.dto.CategoryCreateDto;
@@ -29,12 +30,12 @@ public class OwnerCategoryController implements OwnerCategoryApi {
                                          @PathVariable Long storeId,
                                          @Valid @RequestBody CategoryCreateDto categoryCreateDto) {
         return ResponseEntity.status(HttpStatus.CREATED)
-            .body(ownerCategoryService.saveCategoryByStoreId(owner, storeId, categoryCreateDto));
+            .body(ApiResponse.ok(ownerCategoryService.saveCategoryByStoreId(owner, storeId, categoryCreateDto)));
     }
 
     @GetMapping
     public ResponseEntity<?> findAllCategoryByStoreId(@PathVariable Long storeId) {
-        return ResponseEntity.ok(ownerCategoryService.findAllCategoryByStoreId(storeId));
+        return ResponseEntity.ok(ApiResponse.ok(ownerCategoryService.findAllCategoryByStoreId(storeId)));
     }
 
     @DeleteMapping("{categoryId}")
