@@ -1,6 +1,7 @@
 package com.odiga.reservation.application;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -62,9 +63,10 @@ class OwnerReservationServiceTest {
             new DaySchedule(WeekDay.MONDAY, LocalTime.of(9, 0), LocalTime.of(9, 30), 30);
 
         ReservationSlotCreateRequestDto requestDto = new ReservationSlotCreateRequestDto(2025, 4, List.of(daySchedule));
-        List<ReservationSlotInfoDto> result = ownerReservationSlotService.addAvailableReservationTime(owner, storeId, requestDto);
 
-        assertThat(result.size()).isEqualTo(8);
+        ownerReservationSlotService.addAvailableReservationTime(owner, storeId, requestDto);
+
+        verify(reservationSlotRepository).saveAllBatch(anyList());
     }
 
     @Test
