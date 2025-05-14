@@ -1,5 +1,6 @@
 package com.odiga.store.controller;
 
+import com.odiga.common.dto.ApiResponse;
 import com.odiga.owner.entity.Owner;
 import com.odiga.store.api.OwnerStoreApi;
 import com.odiga.store.application.OwnerStoreService;
@@ -36,25 +37,25 @@ public class OwnerStoreController implements OwnerStoreApi {
                                                 @RequestPart List<MultipartFile> images) {
 
         return ResponseEntity.status(HttpStatus.CREATED)
-            .body(ownerStoreService.registerStore(owner, storeRegisterRequestDto, storeTitleImage, images));
+            .body(ApiResponse.ok(ownerStoreService.registerStore(owner, storeRegisterRequestDto, storeTitleImage, images)));
 
     }
 
     @GetMapping
     public ResponseEntity<?> findAllOwnerStore(@AuthenticationPrincipal Owner owner, Pageable pageable) {
-        return ResponseEntity.ok(ownerStoreService.findAllStoreByOwner(owner, pageable));
+        return ResponseEntity.ok(ApiResponse.ok(ownerStoreService.findAllStoreByOwner(owner, pageable)));
     }
 
     @PutMapping("{storeId}/open")
     public ResponseEntity<?> changeStoreStatusToOpen(@AuthenticationPrincipal Owner owner,
                                                      @PathVariable Long storeId) {
-        return ResponseEntity.ok(ownerStoreService.openStore(owner, storeId));
+        return ResponseEntity.ok(ApiResponse.ok(ownerStoreService.openStore(owner, storeId)));
     }
 
     @PutMapping("{storeId}/close")
     public ResponseEntity<?> changeStoreStatusToClose(@AuthenticationPrincipal Owner owner,
                                                       @PathVariable Long storeId) {
-        return ResponseEntity.ok(ownerStoreService.closeStore(owner, storeId));
+        return ResponseEntity.ok(ApiResponse.ok(ownerStoreService.closeStore(owner, storeId)));
     }
 
 }

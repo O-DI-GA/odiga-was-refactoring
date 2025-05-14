@@ -18,16 +18,22 @@ public interface OwnerMenuApi {
         @ApiResponse(responseCode = "201", content = @Content(mediaType = "application/json", examples = {
             @ExampleObject(name = "메뉴 생성 성공", value = """
                 {
-                  "menuId": 1,
-                  "menuId": "메뉴",
-                  "price" : 10000,
-                  "imageUrl" : "https://example.com/image.jpg"
+                    "success": true,
+                     "data": {
+                          "menuId": 1,
+                          "menuName": "메뉴",
+                          "price" : 10000,
+                          "imageUrl" : "https://example.com/image.jpg"
+                    }
                 }
                 """),})),
         @ApiResponse(responseCode = "404", content = @Content(mediaType = "application/json", examples = {
             @ExampleObject(name = "메뉴 생성 실패", value = """
                 {
-                  "message": "존재하지 않는 카테고리 입니다."
+                    "success": false,
+                    "error": {
+                        "message": "존재하지 않는 카테고리 입니다."
+                    }
                 }
                 """),}))})
     ResponseEntity<?> saveMenu(@PathVariable Long categoryId,
@@ -37,25 +43,31 @@ public interface OwnerMenuApi {
     @ApiResponses({
         @ApiResponse(responseCode = "200", content = @Content(mediaType = "application/json", examples = {
             @ExampleObject(name = "메뉴 조회 성공", value = """
-                [
-                    {
-                      "menuId": 1,
-                      "menuId": "메뉴",
-                      "price" : 10000,
-                      "imageUrl" : "https://example.com/image.jpg"
-                    },
-                    {
-                      "menuId": 2,
-                      "menuId": "메뉴2",
-                      "price" : 20000,
-                      "imageUrl" : "https://example.com/image2.jpg"
-                    }
-                ]
+                {
+                    "success": true,
+                     "data": [
+                        {
+                          "menuId": 1,
+                          "menuName": "메뉴",
+                          "price" : 10000,
+                          "imageUrl" : "https://example.com/image.jpg"
+                        },
+                        {
+                          "menuId": 2,
+                          "menuName": "메뉴2",
+                          "price" : 20000,
+                          "imageUrl" : "https://example.com/image2.jpg"
+                        }
+                    ]
+                }
                 """),})),
         @ApiResponse(responseCode = "404", content = @Content(mediaType = "application/json", examples = {
             @ExampleObject(name = "메뉴 조회 실패", value = """
                 {
-                  "message": "존재하지 않는 카테고리 입니다."
+                    "success": false,
+                    "error": {
+                        "message": "존재하지 않는 카테고리 입니다."
+                    }
                 }
                 """),}))})
     ResponseEntity<?> findMenuByCategoryId(@PathVariable Long categoryId);
@@ -65,7 +77,10 @@ public interface OwnerMenuApi {
         @ApiResponse(responseCode = "404", content = @Content(mediaType = "application/json", examples = {
             @ExampleObject(name = "메뉴 삭제 실패", value = """
                 {
-                  "message": "존재하지 않는 메뉴 입니다."
+                    "success": false,
+                    "error": {
+                        "message": "존재하지 않는 메뉴 입니다."
+                    }
                 }
                 """),})),})
     ResponseEntity<?> deleteMenuById(@PathVariable Long categoryId,

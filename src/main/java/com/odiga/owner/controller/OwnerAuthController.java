@@ -1,5 +1,6 @@
 package com.odiga.owner.controller;
 
+import com.odiga.common.dto.ApiResponse;
 import com.odiga.owner.api.OwnerAuthApi;
 import com.odiga.owner.application.OwnerAuthService;
 import com.odiga.owner.dto.OwnerLoginRequestDto;
@@ -23,14 +24,14 @@ public class OwnerAuthController implements OwnerAuthApi {
     @PostMapping("signup")
     public ResponseEntity<?> ownerSignup(@Valid @RequestBody OwnerSignupRequestDto ownerSignupRequestDto) {
         return ResponseEntity.status(HttpStatus.CREATED)
-            .body(ownerAuthService.signupOwner(ownerSignupRequestDto));
+            .body(ApiResponse.ok(ownerAuthService.signupOwner(ownerSignupRequestDto)));
     }
 
 
     @PostMapping("login")
     public ResponseEntity<?> ownerLogin(@Valid @RequestBody OwnerLoginRequestDto ownerLoginRequestDto) {
         return ResponseEntity.status(HttpStatus.OK)
-            .body(ownerAuthService.loginOwner(ownerLoginRequestDto));
+            .body(ApiResponse.ok(ownerAuthService.loginOwner(ownerLoginRequestDto)));
     }
 
 }

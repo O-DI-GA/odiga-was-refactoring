@@ -1,5 +1,6 @@
 package com.odiga.menu.controller;
 
+import com.odiga.common.dto.ApiResponse;
 import com.odiga.menu.api.OwnerMenuApi;
 import com.odiga.menu.application.OwnerMenuService;
 import com.odiga.menu.dto.MenuCreateDto;
@@ -20,7 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequestMapping("api/v1/owners/categories/{categoryId}/menus")
 @RequiredArgsConstructor
-public class OwnerMenusController implements OwnerMenuApi {
+public class OwnerMenuController implements OwnerMenuApi {
 
     private final OwnerMenuService ownerMenuService;
 
@@ -29,12 +30,12 @@ public class OwnerMenusController implements OwnerMenuApi {
                                       @RequestPart MultipartFile menuImage,
                                       @Valid @RequestPart MenuCreateDto menuCreateDto) {
         return ResponseEntity.status(HttpStatus.CREATED)
-            .body(ownerMenuService.addMenu(categoryId, menuImage, menuCreateDto));
+            .body(ApiResponse.ok(ownerMenuService.addMenu(categoryId, menuImage, menuCreateDto)));
     }
 
     @GetMapping
     public ResponseEntity<?> findMenuByCategoryId(@PathVariable Long categoryId) {
-        return ResponseEntity.ok(ownerMenuService.findMenuByCategoryId(categoryId));
+        return ResponseEntity.ok(ApiResponse.ok(ownerMenuService.findMenuByCategoryId(categoryId)));
     }
 
     @DeleteMapping("{menuId}")
