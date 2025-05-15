@@ -79,7 +79,6 @@ public class OwnerReservationSlotService {
         for (LocalDateTime dateTime : times) {
             ReservationSlot reservationSlot = ReservationSlot.builder()
                 .reservationTime(dateTime)
-                .store(store)
                 .build();
 
             saveList.add(reservationSlot);

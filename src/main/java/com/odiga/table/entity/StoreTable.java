@@ -16,6 +16,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Setter;
 
 @Entity
 public class StoreTable extends BaseEntity {
@@ -28,6 +29,8 @@ public class StoreTable extends BaseEntity {
 
     private int tableNumber;
 
+
+    @Setter
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn
     private Store store;

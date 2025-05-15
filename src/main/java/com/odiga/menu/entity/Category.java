@@ -16,6 +16,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Getter
@@ -30,6 +31,7 @@ public class Category extends BaseEntity {
 
     private String name;
 
+    @Setter
     @ManyToOne
     @JoinColumn(name = "STORE_ID")
     private Store store;

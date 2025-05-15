@@ -110,9 +110,16 @@ public class Store extends BaseEntity {
 
     public void addCategory(Category category) {
         categories.add(category);
+        category.setStore(this);
     }
 
     public void addReservationSlot(ReservationSlot reservationSlot) {
         reservationSlots.add(reservationSlot);
+        reservationSlot.setStore(this);
+    }
+
+    public void addStoreTable(StoreTable storeTable) {
+        storeTables.add(storeTable);
+        storeTable.setStore(this);
     }
 }
