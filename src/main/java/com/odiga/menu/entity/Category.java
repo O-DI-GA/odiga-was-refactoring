@@ -2,6 +2,7 @@ package com.odiga.menu.entity;
 
 import com.odiga.common.entity.BaseEntity;
 import com.odiga.store.entity.Store;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -34,7 +35,7 @@ public class Category extends BaseEntity {
     private Store store;
 
     @Builder.Default
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category", cascade = CascadeType.REMOVE)
     private List<Menu> menus = new ArrayList<>();
 
     public void addMenu(Menu menu) {
