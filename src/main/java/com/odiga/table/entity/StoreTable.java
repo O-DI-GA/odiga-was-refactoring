@@ -14,11 +14,24 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Table(uniqueConstraints = {
+    @UniqueConstraint(name = "UNIQUE_TABLE_STORE", columnNames = {"TABLE_NUMBER", "STORE_ID"})
+})
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Getter
 public class StoreTable extends BaseEntity {
 
     @Id
@@ -29,15 +42,16 @@ public class StoreTable extends BaseEntity {
 
     private int tableNumber;
 
-
     @Setter
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn
+    @JoinColumn(name = "STORE_ID", nullable = false)
     private Store store;
 
+    @Builder.Default
     @OneToMany(mappedBy = "storeTable")
     private List<TableOrder> tableOrders = new ArrayList<>();
 
+    @Builder.Default
     @Enumerated(EnumType.STRING)
-    private TableStatus tableStatus;
+    private TableStatus tableStatus = TableStatus.EMPTY;
 }
