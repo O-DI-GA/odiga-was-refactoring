@@ -64,6 +64,7 @@ public class Store extends BaseEntity {
     @OneToMany(mappedBy = "store")
     private List<Category> categories = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "store")
     private List<StoreTable> storeTables = new ArrayList<>();
 
