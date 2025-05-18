@@ -3,8 +3,10 @@ package com.odiga.table.controller;
 
 import com.odiga.common.dto.ApiResponse;
 import com.odiga.owner.entity.Owner;
+import com.odiga.table.api.OwnerStoreTableApi;
 import com.odiga.table.application.OwnerStoreTableService;
 import com.odiga.table.dto.StoreTableCreateRequestDto;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,14 +21,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("api/v1/owners/stores/{storeId}/store-tables")
 @RequiredArgsConstructor
-public class OwnerStoreTableController {
+public class OwnerStoreTableController implements OwnerStoreTableApi {
 
     private final OwnerStoreTableService ownerStoreTableService;
 
     @PostMapping
     public ResponseEntity<?> addStoreTable(@AuthenticationPrincipal Owner owner,
                                            @PathVariable Long storeId,
-                                           @RequestBody StoreTableCreateRequestDto storeTableCreateRequestDto) {
+                                           @Valid @RequestBody StoreTableCreateRequestDto storeTableCreateRequestDto) {
 
         return ResponseEntity.status(HttpStatus.CREATED)
             .body(ApiResponse.ok(ownerStoreTableService.addStoreTable(owner, storeId, storeTableCreateRequestDto)));
