@@ -1,7 +1,6 @@
 package com.odiga.menu.dto;
 
 import com.odiga.menu.entity.Category;
-import com.odiga.store.entity.Store;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 
@@ -12,10 +11,9 @@ public record CategoryCreateDto(
     @Schema(description = "메뉴 카테고리 이름", example = "메인 메뉴")
     String categoryName) {
 
-    public Category toEntity(Store store) {
+    public Category toEntity() {
         return Category.builder()
             .name(categoryName)
-            .store(store)
             .build();
     }
 

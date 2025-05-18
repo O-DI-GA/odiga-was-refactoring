@@ -58,7 +58,7 @@ public class OwnerReservationSlotController implements OwnerReservationSlotApi {
     public ResponseEntity<?> changeStatusSlot(@AuthenticationPrincipal Owner owner,
                                               @PathVariable Long storeId,
                                               @PathVariable Long reservationSlotId,
-                                              @RequestBody ReservationSlotChangeStatusRequestDto requestDto) {
+                                              @Valid @RequestBody ReservationSlotChangeStatusRequestDto requestDto) {
         return ResponseEntity.ok()
             .body(ApiResponse.ok(ownerReservationSlotService.changeStatusById(owner, storeId, reservationSlotId, requestDto)));
     }

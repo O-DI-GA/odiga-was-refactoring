@@ -30,7 +30,7 @@ public class OwnerCategoryService {
 
         store.validateOwner(owner.getId());
 
-        Category category = categoryCreateDto.toEntity(store);
+        Category category = categoryCreateDto.toEntity();
 
         categoryRepository.save(category);
 
