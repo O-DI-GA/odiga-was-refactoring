@@ -1,6 +1,7 @@
 package com.odiga.global.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.odiga.common.dto.ApiResponse;
 import com.odiga.global.exception.CustomException;
 import com.odiga.global.exception.ErrorCode;
 import com.odiga.global.exception.ErrorResponse;
@@ -32,7 +33,7 @@ public class JwtExceptionFilter extends OncePerRequestFilter {
 
         response.setContentType("application/json;charset=UTF-8");
         response.setStatus(errorCode.getHttpStatus().value());
-        response.getWriter().write(new ObjectMapper().writeValueAsString(errorResponse));
+        response.getWriter().write(new ObjectMapper().writeValueAsString(ApiResponse.fail(errorResponse)));
         response.getWriter().flush();
         response.getWriter().close();
     }
