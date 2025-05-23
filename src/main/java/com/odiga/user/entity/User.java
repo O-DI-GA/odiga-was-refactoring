@@ -35,6 +35,8 @@ public class User extends BaseEntity implements UserDetails {
 
     private String password;
 
+    private String nickname;
+
     private String profileImageUrl;
 
     @OneToMany(mappedBy = "user")
