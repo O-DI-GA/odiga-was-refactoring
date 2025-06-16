@@ -56,8 +56,8 @@ public class Store extends BaseEntity {
 
     private String titleImageUrl;
 
-    @Enumerated(EnumType.STRING)
     @Builder.Default
+    @Enumerated(EnumType.STRING)
     private StoreStatus storeStatus = StoreStatus.ClOSE;
 
     @Builder.Default
@@ -68,6 +68,7 @@ public class Store extends BaseEntity {
     @OneToMany(mappedBy = "store")
     private List<StoreTable> storeTables = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "store")
     private List<Waiting> waitingList = new ArrayList<>();
 
@@ -75,12 +76,15 @@ public class Store extends BaseEntity {
     @OneToMany(mappedBy = "store")
     private List<ReservationSlot> reservationSlots = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "store")
     private List<Review> reviews = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "store")
     private List<LikeStore> likeStores = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "store")
     private List<StoreImage> images = new ArrayList<>();
 
