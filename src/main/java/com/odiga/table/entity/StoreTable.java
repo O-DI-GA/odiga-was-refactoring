@@ -18,6 +18,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -28,10 +29,10 @@ import lombok.Setter;
     @UniqueConstraint(name = "UNIQUE_TABLE_STORE", columnNames = {"TABLE_NUMBER", "STORE_ID"})
 })
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
 @Builder
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class StoreTable extends BaseEntity {
 
     @Id
