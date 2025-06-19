@@ -34,15 +34,10 @@ class OwnerStoreTableServiceTest {
     @Mock
     StoreRepository storeRepository;
 
-    Owner owner = Owner.builder()
-        .id(1L)
-        .build();
+    Owner owner = Owner.builder().id(1L).build();
 
 
-    Store store = Store.builder()
-        .id(1L)
-        .owner(owner)
-        .build();
+    Store store = Store.builder().id(1L).owner(owner).build();
 
     Long storeId = 1L;
 
@@ -61,7 +56,8 @@ class OwnerStoreTableServiceTest {
 
     @Test
     void findByStoreIdTest() {
-        List<StoreTable> storeTables = new ArrayList<>(List.of(new StoreTable(), new StoreTable()));
+        List<StoreTable> storeTables = new ArrayList<>(List.of(StoreTable.builder().build(), StoreTable.builder()
+            .build()));
 
         when(storeRepository.findById(storeId)).thenReturn(Optional.of(store));
         when(storeTableRepository.findByStoreId(storeId)).thenReturn(storeTables);

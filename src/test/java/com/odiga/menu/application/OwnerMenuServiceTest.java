@@ -44,7 +44,7 @@ class OwnerMenuServiceTest {
     @DisplayName("메뉴 저장 성공")
     void addMenuTest() {
         Long categoryId = 1L;
-        Category category = new Category();
+        Category category = Category.builder().build();
 
         when(categoryRepository.findById(categoryId)).thenReturn(Optional.of(category));
 
@@ -74,7 +74,7 @@ class OwnerMenuServiceTest {
     @DisplayName("카테고리로 메뉴 조회 성공")
     void findMenuByCategoryIdTest() {
         Long categoryId = 1L;
-        List<Menu> menus = new ArrayList<>(List.of(new Menu(), new Menu()));
+        List<Menu> menus = new ArrayList<>(List.of(Menu.builder().build(), Menu.builder().build()));
 
         when(categoryRepository.existsById(categoryId)).thenReturn(true);
         when(menuRepository.findByCategoryId(categoryId)).thenReturn(menus);
@@ -99,7 +99,7 @@ class OwnerMenuServiceTest {
     @DisplayName("메뉴 삭제 성공")
     void deleteByIdTest() {
         Long menuId = 1L;
-        Menu menu = new Menu();
+        Menu menu = Menu.builder().build();
 
         when(menuRepository.findById(menuId)).thenReturn(Optional.of(menu));
 
@@ -112,7 +112,7 @@ class OwnerMenuServiceTest {
     @DisplayName("메뉴 삭제 실패 - 존재하지 않는 메뉴")
     void deleteByIdFailTest() {
         Long menuId = 1L;
-        Menu menu = new Menu();
+        Menu menu = Menu.builder().build();
 
         assertThatThrownBy(() -> ownerMenuService.deleteById(menuId))
             .isInstanceOf(CustomException.class)

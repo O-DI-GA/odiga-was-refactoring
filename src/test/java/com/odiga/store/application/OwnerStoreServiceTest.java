@@ -44,7 +44,8 @@ class OwnerStoreServiceTest {
         StoreRegisterRequestDto storeRegisterRequestDto =
             new StoreRegisterRequestDto("store", "000-0000-0000", "경상북도 경산시", 0.00, 0.00);
 
-        StoreResponseDto response = ownerStoreService.registerStore(new Owner(), storeRegisterRequestDto, new MockMultipartFile("titleImage", new byte[0]), new ArrayList<>());
+        StoreResponseDto response = ownerStoreService.registerStore(Owner.builder()
+            .build(), storeRegisterRequestDto, new MockMultipartFile("titleImage", new byte[0]), new ArrayList<>());
 
         assertThat(response.name()).isEqualTo("store");
 
@@ -53,7 +54,7 @@ class OwnerStoreServiceTest {
 
     @Test
     void findAllOwnerTest() {
-        Owner owner = new Owner();
+        Owner owner = Owner.builder().build();
 
         Store store = Store.builder()
             .name("store1")
