@@ -1,10 +1,8 @@
 package com.odiga.user.application;
 
 import com.odiga.common.enums.Role;
-import com.odiga.owner.entity.Owner;
 import com.odiga.user.dao.UserRepository;
 import com.odiga.user.entity.User;
-import net.minidev.json.JSONUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,7 +15,6 @@ import org.springframework.security.core.GrantedAuthority;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -33,11 +30,7 @@ class CustomUserDetailsServiceTest {
 
     @BeforeEach
     void init() {
-        user = User.builder()
-                .email("example@google.com")
-                .password("password")
-                .nickname("name")
-                .build();
+        user = User.builder().email("example@google.com").password("password").nickname("name").build();
     }
 
     @Test
@@ -48,8 +41,7 @@ class CustomUserDetailsServiceTest {
 
         User findUser = customUserDetailsService.loadUserByUsername("example@google.com");
 
-        GrantedAuthority grantedAuthority = findUser.getAuthorities().stream().findFirst()
-                .orElse(null);
+        GrantedAuthority grantedAuthority = findUser.getAuthorities().stream().findFirst().orElse(null);
 
         assertThat(findUser.getUsername()).isEqualTo(user.getUsername());
         assertThat(grantedAuthority).isNotNull();
