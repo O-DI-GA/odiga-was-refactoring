@@ -13,10 +13,6 @@ import io.jsonwebtoken.security.SignatureException;
 import java.security.Key;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -24,15 +20,12 @@ public class JwtTokenProvider {
 
     private final long tokenExpireSeconds;
     private final Key key;
-    private final UserDetailsService userDetailsService;
 
     public JwtTokenProvider(@Value("${security.jwt.secret}") String secretKey,
-                            @Value("${security.jwt.expire-seconds}") long tokenExpireSeconds,
-                            UserDetailsService userDetailsService) {
+                            @Value("${security.jwt.expire-seconds}") long tokenExpireSeconds) {
         this.tokenExpireSeconds = tokenExpireSeconds;
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         this.key = Keys.hmacShaKeyFor(keyBytes);
-        this.userDetailsService = userDetailsService;
     }
 
     public JwtTokenDto createToken(String email) {
@@ -53,12 +46,6 @@ public class JwtTokenProvider {
             .compact();
 
         return JwtTokenDto.of(accessToken, refreshToken);
-    }
-
-    public Authentication getAuthentication(String token) {
-        String email = getClaims(token).getSubject();
-        UserDetails userDetails = userDetailsService.loadUserByUsername(email);
-        return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
     public Claims getClaims(String token) {

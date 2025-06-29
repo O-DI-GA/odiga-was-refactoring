@@ -3,7 +3,6 @@ package com.odiga.global.jwt;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import com.odiga.common.enums.Role;
 import com.odiga.config.TestConfig;
 import com.odiga.owner.application.OwnerUserDetailsService;
 import com.odiga.owner.dao.OwnerRepository;
@@ -18,9 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.context.annotation.Import;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.test.context.ActiveProfiles;
 
 @ActiveProfiles("test")
@@ -43,7 +39,7 @@ class JwtTokenProviderTest {
     @BeforeEach
     void init() {
         String secretKey = "secretKeySecretKeySecretKeySecretKeySecretKeysecretKeySecretKeySecretKeySecretKeySecretKey";
-        jwtTokenProvider = new JwtTokenProvider(secretKey, 1000, ownerUserDetailsService);
+        jwtTokenProvider = new JwtTokenProvider(secretKey, 1000);
         owner = Owner.builder()
             .email("example@google.com")
             .password("password")
@@ -80,31 +76,5 @@ class JwtTokenProviderTest {
         Thread.sleep(2000);
 
         assertThatThrownBy(() -> jwtTokenProvider.getClaims(token.accessToken())).isInstanceOf(ExpiredJwtException.class);
-    }
-
-    @Test
-    @DisplayName("올바른 Owner email으로 authentication을 조회하면 OWNER 권한을 가진다")
-    void getOwnerAuthenticationTest() {
-
-        ownerRepository.save(owner);
-
-        JwtTokenDto token = jwtTokenProvider.createToken("example@google.com");
-
-        Authentication authentication = jwtTokenProvider.getAuthentication(token.accessToken());
-
-        GrantedAuthority grantedAuthority = authentication.getAuthorities().stream().findFirst()
-            .orElse(null);
-
-        assertThat(grantedAuthority).isNotNull();
-        assertThat(grantedAuthority.toString()).isEqualTo(Role.ROLE_OWNER.name());
-    }
-
-    @Test
-    @DisplayName("존재하지 않는 Owner email으로 authentication를 조회하면 UsernameNotFoundException 발생")
-    void notExistOwnerEmailGetAuthenticationTest() {
-        JwtTokenDto token = jwtTokenProvider.createToken("example@naver.com");
-
-        assertThatThrownBy(() -> jwtTokenProvider.getAuthentication(token.accessToken()))
-            .isInstanceOf(UsernameNotFoundException.class);
     }
 }
