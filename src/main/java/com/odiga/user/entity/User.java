@@ -42,6 +42,7 @@ public class User extends BaseEntity implements UserDetails {
 
     private String profileImageUrl;
 
+    @Builder.Default
     @OneToMany(mappedBy = "user")
     private List<Review> reviews = new ArrayList<>();
 
