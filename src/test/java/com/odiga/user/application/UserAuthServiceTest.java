@@ -2,6 +2,7 @@ package com.odiga.user.application;
 
 import com.odiga.global.jwt.JwtTokenDto;
 import com.odiga.global.jwt.JwtTokenProvider;
+import com.odiga.owner.entity.Owner;
 import com.odiga.user.dao.UserRepository;
 import com.odiga.user.dto.UserInfoResponseDto;
 import com.odiga.user.dto.UserLoginRequestDto;
@@ -17,7 +18,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class UserAuthServiceTest {
@@ -38,12 +40,15 @@ class UserAuthServiceTest {
     void signupTest() {
         String email = "example@gmail.com";
         when(userRepository.existsByEmail(email)).thenReturn(false);
+        when(jwtTokenProvider.createToken(email)).thenReturn(JwtTokenDto.of("accessToken", "refreshToken"));
 
         UserSignupRequestDto userSignupRequestDto = new UserSignupRequestDto(email, "password", "nickname");
 
-        UserInfoResponseDto userInfoResponseDto = userAuthService.signupUser(userSignupRequestDto);
+        JwtTokenDto jwtTokenDto = userAuthService.signupUser(userSignupRequestDto);
 
-        assertThat(userInfoResponseDto.email()).isEqualTo(email);
+        verify(userRepository, times(1)).save(any(User.class));
+
+        assertThat(jwtTokenDto.accessToken()).isEqualTo("accessToken");
     }
 
     @Test

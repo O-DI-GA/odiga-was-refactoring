@@ -23,7 +23,7 @@ public class UserAuthService {
     private final JwtTokenProvider jwtTokenProvider;
 
     @Transactional
-    public UserInfoResponseDto signupUser(UserSignupRequestDto userSignupRequestDto) {
+    public JwtTokenDto signupUser(UserSignupRequestDto userSignupRequestDto) {
 
         if (userRepository.existsByEmail(userSignupRequestDto.email())) {
             throw new CustomException(UserErrorCode.EMAIL_CONFLICT);
@@ -37,7 +37,7 @@ public class UserAuthService {
 
         userRepository.save(user);
 
-        return UserInfoResponseDto.from(user);
+        return jwtTokenProvider.createToken(user.getEmail());
     }
 
     @Transactional(readOnly = true)
