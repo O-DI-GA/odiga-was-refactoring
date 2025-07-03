@@ -4,7 +4,6 @@ import com.odiga.global.exception.CustomException;
 import com.odiga.global.jwt.JwtTokenDto;
 import com.odiga.global.jwt.JwtTokenProvider;
 import com.odiga.user.dao.UserRepository;
-import com.odiga.user.dto.UserInfoResponseDto;
 import com.odiga.user.dto.UserLoginRequestDto;
 import com.odiga.user.dto.UserSignupRequestDto;
 import com.odiga.user.entity.User;

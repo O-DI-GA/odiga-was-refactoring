@@ -1,7 +1,5 @@
 package com.odiga.user.api;
 
-import com.odiga.owner.dto.OwnerLoginRequestDto;
-import com.odiga.owner.dto.OwnerSignupRequestDto;
 import com.odiga.user.dto.UserLoginRequestDto;
 import com.odiga.user.dto.UserSignupRequestDto;
 import io.swagger.v3.oas.annotations.media.Content;
