@@ -3,9 +3,7 @@ package com.odiga.user.application;
 import com.odiga.global.exception.CustomException;
 import com.odiga.global.jwt.JwtTokenDto;
 import com.odiga.global.jwt.JwtTokenProvider;
-import com.odiga.owner.entity.Owner;
 import com.odiga.user.dao.UserRepository;
-import com.odiga.user.dto.UserInfoResponseDto;
 import com.odiga.user.dto.UserLoginRequestDto;
 import com.odiga.user.dto.UserSignupRequestDto;
 import com.odiga.user.entity.User;
@@ -15,7 +13,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Optional;
@@ -85,5 +82,38 @@ class UserAuthServiceTest {
         JwtTokenDto jwtTokenDto = userAuthService.loginUser(new UserLoginRequestDto(email, password));
 
         assertThat(jwtTokenDto.accessToken()).isEqualTo("accessToken");
+    }
+
+    @Test
+    void loginFailNotFoundEmailTest() {
+        String email = "example@gmail.com";
+        String password = "password";
+
+        UserLoginRequestDto userLoginRequestDto = new UserLoginRequestDto(email, password);
+
+        assertThatThrownBy(() -> userAuthService.loginUser(userLoginRequestDto))
+                .isInstanceOf(CustomException.class)
+                .hasFieldOrPropertyWithValue("errorCode", UserErrorCode.NOT_FOUND);
+    }
+
+    @Test
+    void loginFailWrongPasswordTest() {
+        String email = "example@gmail.com";
+        String password = "password";
+
+        User user = User.builder()
+                .email(email)
+                .password(password)
+                .build();
+
+        when(userRepository.findByEmail(email)).thenReturn(Optional.ofNullable(user));
+        when(passwordEncoder.matches(password, user.getPassword())).thenReturn(false);
+
+        UserLoginRequestDto userLoginRequestDto = new UserLoginRequestDto(email, password);
+
+        assertThatThrownBy(() -> userAuthService.loginUser(userLoginRequestDto))
+                .isInstanceOf(CustomException.class)
+                .hasFieldOrPropertyWithValue("errorCode", UserErrorCode.INCORRECT_PASSWORD);
+
     }
 }
