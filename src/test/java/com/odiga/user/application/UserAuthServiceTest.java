@@ -8,6 +8,7 @@ import com.odiga.user.dto.UserLoginRequestDto;
 import com.odiga.user.dto.UserSignupRequestDto;
 import com.odiga.user.entity.User;
 import com.odiga.user.exception.UserErrorCode;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -53,7 +54,8 @@ class UserAuthServiceTest {
     }
 
     @Test
-    void signupFailTest() {
+    @DisplayName("회원가입 실패 - 이메일 중복")
+    void signupFailEmailConflictExceptionTest() {
         String email = "example@gmail.com";
 
         when(userRepository.existsByEmail(email)).thenReturn(true);
@@ -85,7 +87,8 @@ class UserAuthServiceTest {
     }
 
     @Test
-    void loginFailNotFoundEmailTest() {
+    @DisplayName("로그인 실패 - 존재하지 않는 이메일")
+    void loginFailNotFoundEmailExceptionTest() {
         String email = "example@gmail.com";
         String password = "password";
 
@@ -97,7 +100,8 @@ class UserAuthServiceTest {
     }
 
     @Test
-    void loginFailWrongPasswordTest() {
+    @DisplayName("로그인 실패 - 올바르지 않는 비밀번호")
+    void loginFailIncorrectPasswordExceptionTest() {
         String email = "example@gmail.com";
         String password = "password";
 
