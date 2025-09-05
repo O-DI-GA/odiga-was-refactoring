@@ -3,9 +3,12 @@ package com.odiga.global.exception;
 import com.odiga.common.dto.ApiResponse;
 import com.odiga.global.exception.ErrorResponse.ValidationError;
 import jakarta.servlet.http.HttpServletRequest;
+
 import java.util.List;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
@@ -27,14 +30,15 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<?> exceptionHandler(Exception ex) {
+    public ResponseEntity<?> exceptionHandler(Exception ex, HttpRequest request) {
+        log.error("처리 되지 않은 에러 = {} {}", request.getURI(), ex.getStackTrace());
         return handleExceptionInternal(GlobalErrorCode.INTERNAL_SERVER);
     }
 
     private ResponseEntity<?> handleExceptionInternal(ErrorCode errorCode) {
         ErrorResponse errorResponse = ErrorResponse.builder()
-            .message(errorCode.getMessage())
-            .build();
+                .message(errorCode.getMessage())
+                .build();
 
         return ResponseEntity.status(errorCode.getHttpStatus()).body(ApiResponse.fail(errorResponse));
     }
@@ -45,19 +49,19 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                                                                   HttpStatusCode status,
                                                                   WebRequest request) {
         return ResponseEntity.status(GlobalErrorCode.BAD_REQUEST.getHttpStatus())
-            .body(ApiResponse.fail(makeErrorResponse(ex)));
+                .body(ApiResponse.fail(makeErrorResponse(ex)));
     }
 
     private ErrorResponse makeErrorResponse(BindException ex) {
         List<ErrorResponse.ValidationError> errorList = ex.getBindingResult()
-            .getFieldErrors()
-            .stream()
-            .map(ValidationError::of)
-            .toList();
+                .getFieldErrors()
+                .stream()
+                .map(ValidationError::of)
+                .toList();
 
         return ErrorResponse.builder()
-            .message(GlobalErrorCode.BAD_REQUEST.getMessage())
-            .errors(errorList)
-            .build();
+                .message(GlobalErrorCode.BAD_REQUEST.getMessage())
+                .errors(errorList)
+                .build();
     }
 }
