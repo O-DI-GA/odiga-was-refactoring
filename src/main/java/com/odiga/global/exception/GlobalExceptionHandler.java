@@ -30,8 +30,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<?> exceptionHandler(Exception ex, HttpRequest request) {
-        log.error("처리 되지 않은 에러 = {} {}", request.getURI(), ex.getStackTrace());
+    public ResponseEntity<?> exceptionHandler(Exception ex, HttpServletRequest request) {
+        log.error("처리되지 않은 에러 : {} {}", request.getRequestURI(), request.getMethod(), ex);
         return handleExceptionInternal(GlobalErrorCode.INTERNAL_SERVER);
     }
 
